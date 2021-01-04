@@ -20,21 +20,7 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 import RootStackScreen from './screens/RootStackScreen';
-const HomeScreen = ({navigation})=> {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Home Screen</Text>
-      <Button title="Go to detail" onPress={() =>{navigation.navigate("Detail")}} ></Button>
-    </View>
-  );
-}
-const Detail = ()=> {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Detail Screen</Text>
-    </View>
-  );
-}
+
 const Stack = createStackNavigator();
 const App = () =>  {
   return (
