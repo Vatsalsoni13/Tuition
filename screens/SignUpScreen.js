@@ -76,17 +76,11 @@ const SignInScreen = ({navigation}) => {
            <LinearGradient colors={["#79e3fe","#635df8","#42385D"]}  style={{flex: 1}}>
     <StatusBar translucent={true} backgroundColor={'transparent'} />
         <View style={styles.header}>
-            <View style={{display:'flex',flexDirection:'row'}}>
+            
             <Text style={styles.text_header}>Register Now!</Text>
                 
-                <Animatable.Image 
-                    animation="bounceIn"
-                    duraton="2500"
-                source={require('../logo.png')}
-                style={styles.logo}
-                resizeMode="stretch"
-                />
-            </View>
+    
+            
 
         </View>
         <Animatable.View 
@@ -258,7 +252,7 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontWeight: 'bold',
         fontSize: 30,
-        flex:2.5,
+        
         marginTop:30
     },
     text_footer: {

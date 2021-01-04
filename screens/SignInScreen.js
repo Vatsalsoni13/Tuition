@@ -76,7 +76,7 @@ const SignInScreen = ({navigation}) => {
                 <Animatable.Image 
                     animation="bounceIn"
                     duraton="2500"
-                source={require('../logo.png')}
+                source={require('../study.png')}
                 style={styles.logo}
                 resizeMode="stretch"
                 />
@@ -231,11 +231,11 @@ const styles = StyleSheet.create({
         paddingVertical: 30
     },
     logo: {
-        width: 100,
-        height: 100,
-        borderRadius:100,
+        width: 130,
+        height: 120,
+      
         alignItems: 'flex-end',
-        flex:1,
+        flex:1.2,
         marginRight:10
     },
     text_header: {
