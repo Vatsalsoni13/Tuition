@@ -40,7 +40,7 @@ const ChoiceScreen = ({navigation}) => {
                 <TouchableOpacity
                     style={styles.signIn}
                     onPress={()=>{
-                        navigation.navigate('ChoiceScreen');
+                        navigation.navigate('TutorPanel');
                     }}
                 >
                 <LinearGradient
@@ -55,7 +55,7 @@ const ChoiceScreen = ({navigation}) => {
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    onPress={() => navigation.navigate('SignUpScreen')}
+                    onPress={() => navigation.navigate('StudentPanel')}
                     style={[styles.signIn, {
                         borderColor: '#635df8',
                         borderWidth: 1,
