@@ -19,10 +19,6 @@ import SocialButton from '../components/SocialButon';
 import {useContext} from 'react';
 import {AuthContext} from '../navigation/AuthProvider';
 
-// import { AuthContext } from '../components/context';
-
-// import Users from '../model/users';
-
 const SignInScreen = ({navigation}) => {
   const [data, setData] = React.useState({
     username: '',
@@ -76,6 +72,12 @@ const SignInScreen = ({navigation}) => {
     }
   };
 
+  const validate = () => {
+    if (username.length < 5 || password.length < 7) {
+      Alert.alert('Error', 'Check your Email-id or Password!');
+    } else login(username, password);
+  };
+
   const {colors} = useTheme();
   return (
     <View style={styles.container}>
@@ -90,7 +92,7 @@ const SignInScreen = ({navigation}) => {
             <Animatable.Image
               animation="bounceIn"
               duraton="2500"
-              source={require('../study.png')}
+              source={require('../assets/study.png')}
               style={styles.logo}
               resizeMode="stretch"
             />
@@ -117,6 +119,7 @@ const SignInScreen = ({navigation}) => {
           <View style={styles.action}>
             <FontAwesome name="user-o" color={colors.text} size={20} />
             <TextInput
+              keyboardType="email-address"
               placeholder="Your Username"
               placeholderTextColor="#666666"
               style={[
@@ -195,7 +198,7 @@ const SignInScreen = ({navigation}) => {
             <TouchableOpacity
               style={styles.signIn}
               onPress={() => {
-                login(username, password);
+                validate();
               }}>
               <LinearGradient
                 colors={['#99c2ff', '#635df8']}
