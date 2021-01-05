@@ -75,29 +75,7 @@ const ChoiceScreen = ({navigation}) => {
                 Student Panel
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => {
-                logout();
-              }}
-              style={[
-                styles.signIn,
-                {
-                  borderColor: '#635df8',
-                  borderWidth: 1,
-                  marginTop: 15,
-                  backgroundColor: 'white',
-                },
-              ]}>
-              <Text
-                style={[
-                  styles.textSign,
-                  {
-                    color: 'black',
-                  },
-                ]}>
-                Student Panel
-              </Text>
-            </TouchableOpacity>
+
           </View>
         </View>
       </LinearGradient>

@@ -40,7 +40,7 @@ const CreateBatch = ({navigation}) => {
     <View style={styles.container}>
        <ImageBackground source={require('../blur.jpg')} style={styles.image}>
             <Animatable.Image 
-                animation="BounceIn"
+                animation="bounceIn"
                 duraton="2500"
             source={require('../teach.png')}
             style={{width:230,height:210,alignSelf:'center'}}
