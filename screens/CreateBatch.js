@@ -144,7 +144,7 @@ const CreateBatch = ({navigation}) => {
                 </Text>
               </LinearGradient>
             </TouchableOpacity>
-            </View>
+            </Animatable.View>
     </ImageBackground>
     </View>
   );
