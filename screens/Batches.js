@@ -18,12 +18,27 @@ import {
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import ActionButton from 'react-native-action-button';
+import CreateBatch from './CreateBatch';
 
 const Stack = createStackNavigator();
-const Batches = () => {
-  return <View></View>;
+const Batches = ({navigation}) => {
+  return <View style={{flex:1, backgroundColor: '#f3f3f3'}}>
+
+          <ActionButton
+      buttonColor="#d8345f"
+      size={65}
+      onPress={() => { navigation.navigate("CreateBatch")}}
+    />
+  </View>;
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  actionButtonIcon: {
+    fontSize: 20,
+    height: 22,
+    color: 'white',
+  },
+});
 
 export default Batches;

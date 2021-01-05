@@ -25,7 +25,7 @@ const ChoiceScreen = ({navigation}) => {
 
         <View style={styles.header}>
           <Animatable.Image
-            animation="bounceInDown"
+            animation="fadeInLeftBig"
             duraton="1500"
             source={require('../choice.png')}
             style={styles.logo}

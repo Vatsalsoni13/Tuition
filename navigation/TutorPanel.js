@@ -16,6 +16,7 @@ import Calendar from '../screens/Calendar';
 import Assignments from '../screens/Assignments';
 import Categories from '../screens/Categories';
 import Batches from '../screens/Batches';
+import ActionButton from 'react-native-action-button';
 
 const TutorPanel = ({navigation}) => {
   const Tab = createMaterialBottomTabNavigator();

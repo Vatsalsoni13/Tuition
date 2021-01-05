@@ -39,10 +39,18 @@ const AuthStack = () => {
   }
   return (
     <Stack.Navigator initialRouteName={routeName} headerMode="none">
-      <Stack.Screen name="SplashScreen" component={SplashScreen} />
-      <Stack.Screen name="SignInScreen" component={SignInScreen} />
-      <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
-      <Stack.Screen name="ChoiceScreen" component={ChoiceScreen} />
+      <Stack.Screen name="SplashScreen" component={SplashScreen}  options={{
+         headerShown: false,
+        }} />
+      <Stack.Screen name="SignInScreen" component={SignInScreen}  options={{
+         headerShown: false,
+        }} />
+      <Stack.Screen name="SignUpScreen" component={SignUpScreen}  options={{
+         headerShown: false,
+        }} />
+      <Stack.Screen name="ChoiceScreen" component={ChoiceScreen}  options={{
+         headerShown: false,
+        }} />
     </Stack.Navigator>
   );
 };
