@@ -1,4 +1,5 @@
 import React from 'react';
+import {useContext} from 'react';
 import {
   View,
   Text,
@@ -11,11 +12,11 @@ import {
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Feather from 'react-native-vector-icons/Feather';
-import {Button} from 'react-native-paper';
+import {AuthContext} from '../navigation/AuthProvider';
 
 const ChoiceScreen = ({navigation}) => {
+  const {logout} = useContext(AuthContext);
+
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -27,7 +28,7 @@ const ChoiceScreen = ({navigation}) => {
           <Animatable.Image
             animation="bounceInDown"
             duraton="1500"
-            source={require('../choice.png')}
+            source={require('../assets/choice.png')}
             style={styles.logo}
             resizeMode="stretch"
           />
@@ -55,6 +56,29 @@ const ChoiceScreen = ({navigation}) => {
 
             <TouchableOpacity
               onPress={() => navigation.navigate('StudentPanel')}
+              style={[
+                styles.signIn,
+                {
+                  borderColor: '#635df8',
+                  borderWidth: 1,
+                  marginTop: 15,
+                  backgroundColor: 'white',
+                },
+              ]}>
+              <Text
+                style={[
+                  styles.textSign,
+                  {
+                    color: 'black',
+                  },
+                ]}>
+                Student Panel
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                logout();
+              }}
               style={[
                 styles.signIn,
                 {

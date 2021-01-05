@@ -5,6 +5,7 @@ import {useState} from 'react';
 export const AuthContext = createContext();
 import {GoogleSignin} from '@react-native-community/google-signin';
 import {Alert} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export const AuthProvider = ({children}) => {
   const [user, setUser] = useState(null);
@@ -16,9 +17,13 @@ export const AuthProvider = ({children}) => {
         setUser,
         login: async (email, password) => {
           try {
-            await auth().signInWithEmailAndPassword(email, password);
+            await auth()
+              .signInWithEmailAndPassword(email, password)
+              .catch((e) => {
+                Alert.alert('Error', e.message.slice(e.message.indexOf(' ')));
+              });
           } catch (e) {
-            console.log('Err', e);
+            console.log(e);
           }
         },
         googleLogin: async () => {
@@ -39,14 +44,25 @@ export const AuthProvider = ({children}) => {
         },
         register: async (email, password) => {
           try {
-            await auth().createUserWithEmailAndPassword(email, password);
+            await auth()
+              .createUserWithEmailAndPassword(email, password)
+              .then(() => {
+                auth().currentUser.sendEmailVerification();
+              })
+              .catch((e) => {
+                Alert.alert('Error', e.message.slice(e.message.indexOf(' ')));
+              });
           } catch (e) {
             console.log(e);
           }
         },
         logout: async () => {
           try {
-            await auth().signOut();
+            await auth()
+              .signOut()
+              .catch((e) => {
+                Alert.alert('Error', e.message.slice(e.message.indexOf(' ')));
+              });
           } catch (e) {
             console.log(e);
           }
