@@ -10,6 +10,7 @@ import {
   StyleSheet,
   ScrollView,
   StatusBar,
+  Alert,
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
@@ -23,6 +24,8 @@ const SignInScreen = ({navigation}) => {
   const [data, setData] = React.useState({
     username: '',
     password: '',
+    isValid: true,
+    isValidPassword: true,
     confirm_password: '',
     check_textInputChange: false,
     secureTextEntry: true,
@@ -39,29 +42,42 @@ const SignInScreen = ({navigation}) => {
     secureTextEntry,
     secureTextEntry1,
     username,
+    isValid,
+    isValidPassword,
   } = data;
 
   const textInputChange = (val) => {
-    if (val.length !== 0) {
+    if (val.length !== 0 && val.length >= 4) {
       setData({
         ...data,
         username: val,
         check_textInputChange: true,
+        isValid: true,
       });
     } else {
       setData({
         ...data,
         username: val,
         check_textInputChange: false,
+        isValid: false,
       });
     }
   };
 
   const handlePasswordChange = (val) => {
-    setData({
-      ...data,
-      password: val,
-    });
+    if (val.trim().length >= 8) {
+      setData({
+        ...data,
+        password: val,
+        isValidPassword: true,
+      });
+    } else {
+      setData({
+        ...data,
+        password: val,
+        isValidPassword: false,
+      });
+    }
   };
 
   const handleConfirmPasswordChange = (val) => {
@@ -71,19 +87,17 @@ const SignInScreen = ({navigation}) => {
     });
   };
 
-  // const updateSecureTextEntry = () => {
-  //   setData({
-  //     ...data,
-  //     secureTextEntry: !data.secureTextEntry,
-  //   });
-  // };
-
-  // const updateConfirmSecureTextEntry = () => {
-  //   setData({
-  //     ...data,
-  //     confirm_secureTextEntry: !data.confirm_secureTextEntry,
-  //   });
-  // };
+  const validate = () => {
+    if (
+      username.length < 4 ||
+      password.length < 8 ||
+      confirm_password.length < 8
+    ) {
+      setData({...data, isValid: false});
+    } else if (password !== confirm_password) {
+      Alert.alert('Error', 'Confirm Password doesnt match!');
+    } else register(username, password);
+  };
 
   return (
     <View style={styles.container}>
@@ -100,6 +114,7 @@ const SignInScreen = ({navigation}) => {
             <View style={styles.action}>
               <FontAwesome name="user-o" color="#05375a" size={20} />
               <TextInput
+                keyboardType="email-address"
                 placeholder="Your Username"
                 style={styles.textInput}
                 autoCapitalize="none"
@@ -111,7 +126,13 @@ const SignInScreen = ({navigation}) => {
                 </Animatable.View>
               ) : null}
             </View>
-
+            {data.isValid ? null : (
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={styles.errorMsg}>
+                  Username must be 4 characters long.
+                </Text>
+              </Animatable.View>
+            )}
             <Text
               style={[
                 styles.text_footer,
@@ -141,7 +162,13 @@ const SignInScreen = ({navigation}) => {
                 )}
               </TouchableOpacity>
             </View>
-
+            {data.isValidPassword ? null : (
+              <Animatable.View animation="fadeInLeft" duration={500}>
+                <Text style={styles.errorMsg}>
+                  Password must be 8 characters long.
+                </Text>
+              </Animatable.View>
+            )}
             <Text
               style={[
                 styles.text_footer,
@@ -189,8 +216,7 @@ const SignInScreen = ({navigation}) => {
               <TouchableOpacity
                 style={styles.signIn}
                 onPress={() => {
-                  console.log('up');
-                  register(username, password);
+                  validate();
                 }}>
                 <LinearGradient
                   colors={['#99c2ff', '#635df8']}
