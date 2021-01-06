@@ -1,127 +1,42 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Dimensions,
-  StyleSheet,
-  StatusBar,
-  Image,
-} from 'react-native';
-import * as Animatable from 'react-native-animatable';
-import LinearGradient from 'react-native-linear-gradient';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import {useTheme} from '@react-navigation/native';
+import {View, Text, StyleSheet} from 'react-native';
+import LottieView from 'lottie-react-native';
+import {useContext} from 'react';
+import {AuthContext} from '../navigation/AuthProvider';
+import {useState} from 'react';
+import {set} from 'react-native-reanimated';
+import {useEffect} from 'react';
+import AuthStack from '../navigation/AuthStack';
 
-const SplashScreen = ({navigation}) => {
-  const {colors} = useTheme();
+const SplashScreenScreen = ({navigation}) => {
+  const {load, setLoad} = useContext(AuthContext);
+  // useEffect(() => {
+  //   console.log(load);
+  //   if (!load) {
+  //     navigation.replace('SignInScreen');
+  //   }
+  // }, [load]);
 
   return (
     <View style={styles.container}>
-      <LinearGradient
-        colors={['#79e3fe', '#635df8', '#42385D']}
-        style={{flex: 1}}>
-        <StatusBar translucent={true} backgroundColor={'transparent'} />
-
-        <View style={styles.header}>
-          <Animatable.Image
-            animation="bounceIn"
-            duraton="2500"
-            source={require('../assets/logo.png')}
-            style={styles.logo}
-            resizeMode="stretch"
-          />
-        </View>
-        <Animatable.View
-          style={[
-            styles.footer,
-            {
-              backgroundColor: colors.background,
-            },
-          ]}
-          animation="fadeInUpBig">
-          <Text
-            style={[
-              styles.title,
-              {
-                color: colors.text,
-              },
-            ]}>
-            Stay connected with everyone!
-          </Text>
-          <Text style={styles.text}>Sign in with account</Text>
-          <View style={styles.button}>
-            <TouchableOpacity
-              onPress={() => navigation.navigate('SignInScreen')}>
-              <LinearGradient
-                colors={['#80b3ff', '#635df8']}
-                style={styles.signIn}>
-                <Text style={styles.textSign}>Get Started</Text>
-                {/* <MaterialIcons 
-                        name="navigate-next"
-                        color="#fff"
-                        size={20}
-                    /> */}
-              </LinearGradient>
-            </TouchableOpacity>
-          </View>
-        </Animatable.View>
-      </LinearGradient>
+      <LottieView
+        source={require('../assets/splash.json')}
+        autoPlay
+        loop={false}
+        speed={0.7}
+        onAnimationFinish={() => {
+          console.log('Finished');
+          navigation.replace('SignInScreen');
+          setLoad(false);
+        }}
+      />
     </View>
   );
 };
-
-export default SplashScreen;
-
-const {height} = Dimensions.get('screen');
-const height_logo = height * 0.28;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#009387',
-  },
-  header: {
-    flex: 2,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  footer: {
-    flex: 1,
     backgroundColor: '#fff',
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-    paddingVertical: 50,
-    paddingHorizontal: 30,
-  },
-  logo: {
-    width: height_logo,
-    height: height_logo,
-    borderRadius: 100,
-  },
-  title: {
-    color: '#05375a',
-    fontSize: 30,
-    fontWeight: 'bold',
-  },
-  text: {
-    color: 'grey',
-    marginTop: 5,
-  },
-  button: {
-    alignItems: 'flex-end',
-    marginTop: 30,
-  },
-  signIn: {
-    width: 150,
-    height: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 50,
-    flexDirection: 'row',
-  },
-  textSign: {
-    color: 'white',
-    fontWeight: 'bold',
   },
 });
+export default SplashScreenScreen;
