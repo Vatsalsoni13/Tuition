@@ -76,7 +76,9 @@ const ChoiceScreen = ({navigation}) => {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => navigation.navigate('StudentPanel')}
+              onPress={() => {
+                logout();
+              }}
               style={[
                 styles.signIn,
                 {

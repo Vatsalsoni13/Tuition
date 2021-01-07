@@ -19,6 +19,7 @@ import Feather from 'react-native-vector-icons/Feather';
 import {useContext} from 'react';
 import {AuthContext} from '../navigation/AuthProvider';
 import SocialButton from '../components/SocialButon';
+import {createUser} from '../utils/apiCalls';
 
 const SignInScreen = ({navigation}) => {
   const [data, setData] = React.useState({
@@ -87,7 +88,7 @@ const SignInScreen = ({navigation}) => {
     });
   };
 
-  const validate = () => {
+  const validate = async () => {
     if (
       username.length < 4 ||
       password.length < 8 ||
@@ -96,7 +97,9 @@ const SignInScreen = ({navigation}) => {
       setData({...data, isValid: false});
     } else if (password !== confirm_password) {
       Alert.alert('Error', 'Confirm Password doesnt match!');
-    } else register(username, password);
+    } else {
+      register(username, password);
+    }
   };
 
   return (

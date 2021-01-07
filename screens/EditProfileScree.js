@@ -5,8 +5,12 @@ import {
   TouchableOpacity,
   TextInput,
   StyleSheet,
+<<<<<<< HEAD
   ImageBackground,
   ScrollView
+=======
+  Alert,
+>>>>>>> d1f17eb3456a40f2942244123cdfaed38829baaf
 } from 'react-native';
 
 import {useTheme} from 'react-native-paper';
@@ -17,6 +21,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Feather from 'react-native-vector-icons/Feather';
 import LinearGradient from 'react-native-linear-gradient';
 import * as Animatable from 'react-native-animatable';
+import {createUser} from '../utils/apiCalls';
 
 const EditProfileScreen = () => {
   const {colors} = useTheme();
@@ -24,6 +29,9 @@ const EditProfileScreen = () => {
   const [phone, setPhone] = useState('');
   const [qualification, setQualification] = useState('');
   const [location, setLocation] = useState('');
+
+  const editProfile = () => {};
+
   return (
     <ImageBackground source={require('../profile.jpg')} style={styles.image}>
       <ScrollView style={styles.container}>
@@ -116,6 +124,7 @@ const EditProfileScreen = () => {
               />
             </View>
             <TouchableOpacity
+<<<<<<< HEAD
             style={styles.signIn}
             onPress={() => {
               login(username, password);
@@ -134,6 +143,15 @@ const EditProfileScreen = () => {
               </Text>
             </LinearGradient>
           </TouchableOpacity>
+=======
+              style={styles.commandButton}
+              onPress={() => {
+                console.log('Clicked');
+                editProfile();
+              }}>
+              <Text style={styles.panelButtonTitle}>Submit</Text>
+            </TouchableOpacity>
+>>>>>>> d1f17eb3456a40f2942244123cdfaed38829baaf
           </View>
         </Animatable.View>
       </ScrollView>
