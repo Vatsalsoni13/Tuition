@@ -1,56 +1,62 @@
 import React from 'react';
-import {View, SafeAreaView, StyleSheet, Dimensions} from 'react-native';
+import {View, SafeAreaView, StyleSheet, Dimensions,ImageBackground} from 'react-native';
 import {Avatar, Title, Text} from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
 import * as Animatable from 'react-native-animatable';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const ProfileScreen = ({navigation}) => {
   return (
-    <LinearGradient colors={['#e8ffde', '#f8fff5']} style={styles.container}>
-      <SafeAreaView style={styles.container}>
+   
+  
+    
+      <ImageBackground source={require('../profile.jpg')} style={styles.image}>
+      <ScrollView style={styles.container}>
         <Animatable.View animation="zoomIn">
           <View
             style={{
               paddingHorizontal: 30,
               // height: 50,
-              marginTop: 40,
+              marginTop: 10,
               flexDirection: 'row',
               alignItems: 'center',
               justifyContent: 'space-between',
             }}>
-            <Text style={{fontSize: 40}}>Profile</Text>
+            <Text style={{fontSize: 35,color:"#fdcfdf",fontWeight:'bold'}}>PROFILE</Text>
             <FontAwesome
               onPress={() => {
                 navigation.navigate('EditProfileScreen');
               }}
               name="edit"
               size={25}
+              style={{color:"#fbf6f0"}}
             />
           </View>
           <View style={styles.userInfoSection}>
             <View
               style={{
                 flexDirection: 'column',
-                marginTop: 50,
+                marginTop: 10,
                 justifyContent: 'center',
                 alignItems: 'center',
               }}>
               <Animatable.Image
-                source={require('../assets/profile.png')}
-                style={{height: 170, width: 300}}
+                source={require('../assets/profile_icon.png')}
+                style={{height: 300, width: 300}}
               />
-              <View style={{alignItems: 'center'}}>
+              <View style={{alignItems: 'center',margin:30}}>
                 <Title
                   style={[
                     styles.title,
                     {
-                      marginTop: 15,
-                      marginBottom: 5,
+                     
+                      fontSize:30,
                     },
-                  ]}>
+                  ]}
+                  >
                   John Doe
                 </Title>
                 {/* <Caption style={styles.caption}>@j_doe</Caption> */}
@@ -60,25 +66,26 @@ const ProfileScreen = ({navigation}) => {
 
           <View style={styles.userInfoSection}>
             <View style={styles.row}>
-              <Icon name="email" color="#777777" size={30} />
+              <Icon name="email" color="black" size={30} />
               <Text style={styles.textStyle}>john_doe@email.com</Text>
             </View>
             <View style={styles.row}>
-              <Icon name="map-marker-radius" color="#777777" size={30} />
+              <Icon name="map-marker-radius" color="black" size={30} />
               <Text style={styles.textStyle}>Kolkata, India</Text>
             </View>
             <View style={styles.row}>
-              <Icon name="phone" color="#777777" size={30} />
+              <Icon name="phone" color="black" size={30} />
               <Text style={styles.textStyle}>+91-900000009</Text>
             </View>
             <View style={styles.row}>
-              <FontAwesome name="user-graduate" color="#777777" size={30} />
+              <FontAwesome name="user-graduate" color="black" size={30} />
               <Text style={styles.textStyle}>BE Engineering</Text>
             </View>
           </View>
         </Animatable.View>
-      </SafeAreaView>
-    </LinearGradient>
+        </ScrollView>
+        </ImageBackground>
+     
   );
 };
 
@@ -88,9 +95,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  image: {
+    flex: 1,
+    resizeMode: 'cover',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    paddingTop: 60,
+  },
   userInfoSection: {
     paddingHorizontal: 30,
     marginBottom: 25,
+    
   },
   title: {
     fontSize: 24,
@@ -120,7 +135,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   textStyle: {
-    color: '#777777',
+    color: '#31112c',
     marginLeft: 20,
     fontSize: 25,
   },

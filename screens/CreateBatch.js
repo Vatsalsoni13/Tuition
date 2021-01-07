@@ -39,8 +39,9 @@ const CreateBatch = ({navigation}) => {
   const [subject, setSubject] = React.useState('NULL');
 
   return (
-    <ScrollView style={styles.container}>
+    
       <ImageBackground source={require('../blur.jpg')} style={styles.image}>
+      <ScrollView style={styles.container}>
         <Animatable.Image
           animation="bounceIn"
           duraton="2500"
@@ -195,8 +196,9 @@ const CreateBatch = ({navigation}) => {
             </LinearGradient>
           </TouchableOpacity>
         </Animatable.View>
+        </ScrollView>
       </ImageBackground>
-    </ScrollView>
+   
   );
 };
 

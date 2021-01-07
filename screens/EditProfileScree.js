@@ -5,6 +5,8 @@ import {
   TouchableOpacity,
   TextInput,
   StyleSheet,
+  ImageBackground,
+  ScrollView
 } from 'react-native';
 
 import {useTheme} from 'react-native-paper';
@@ -23,31 +25,20 @@ const EditProfileScreen = () => {
   const [qualification, setQualification] = useState('');
   const [location, setLocation] = useState('');
   return (
-    <LinearGradient colors={['#e8ffde', '#f8fff5']} style={styles.container}>
-      <View style={styles.container}>
-        <Animatable.View animation="zoomIn">
-          <View
-            style={{
-              // paddingHorizontal: 30,
-              margin: 20,
-              marginTop: 40,
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}>
-            <Text style={{fontSize: 40}}>Edit Profile</Text>
-          </View>
+    <ImageBackground source={require('../profile.jpg')} style={styles.image}>
+      <ScrollView style={styles.container}>
+      <Animatable.View style={styles.container} animation="zoomIn">
           <View style={{alignItems: 'center'}}>
-            <Text style={{marginTop: 10, fontSize: 18, fontWeight: 'bold'}}>
+            <Text style={{marginTop: 30, fontSize: 30, fontWeight: 'bold',color:'white'}}>
               John Doe
             </Text>
           </View>
-          <View style={{margin: 20}}>
+          <View style={{paddingVertical:60,paddingHorizontal:60,marginTop:40}}>
             <View style={styles.action}>
-              <FontAwesome name="user-o" color={colors.text} size={20} />
+              <FontAwesome name="user-o" color="white" size={20} />
               <TextInput
                 placeholder="Full Name"
-                placeholderTextColor="#666666"
+                placeholderTextColor="#e0dede"
                 autoCorrect={false}
                 style={[
                   styles.textInput,
@@ -63,10 +54,10 @@ const EditProfileScreen = () => {
             </View>
 
             <View style={styles.action}>
-              <Feather name="phone" color={colors.text} size={20} />
+              <Feather name="phone" color="white" size={20} />
               <TextInput
                 placeholder="Phone"
-                placeholderTextColor="#666666"
+                placeholderTextColor="#e0dede"
                 keyboardType="number-pad"
                 autoCorrect={false}
                 style={[
@@ -84,14 +75,14 @@ const EditProfileScreen = () => {
             <View style={styles.action}>
               <FontAwesome5
                 name="user-graduate"
-                color={colors.text}
+                color="white"
                 size={20}
               />
 
               {/* <FontAwesome name="envelope-o" color={colors.text} size={20} /> */}
               <TextInput
                 placeholder="Qualification"
-                placeholderTextColor="#666666"
+                placeholderTextColor="#e0dede"
                 keyboardType="email-address"
                 autoCorrect={false}
                 style={[
@@ -107,10 +98,10 @@ const EditProfileScreen = () => {
               />
             </View>
             <View style={styles.action}>
-              <Icon name="map-marker-outline" color={colors.text} size={20} />
+              <Icon name="map-marker-outline" color="white" size={20} />
               <TextInput
                 placeholder="Location"
-                placeholderTextColor="#666666"
+                placeholderTextColor="#e0dede"
                 autoCorrect={false}
                 style={[
                   styles.textInput,
@@ -125,16 +116,28 @@ const EditProfileScreen = () => {
               />
             </View>
             <TouchableOpacity
-              style={styles.commandButton}
-              onPress={() => {
-                console.log('Clicked');
-              }}>
-              <Text style={styles.panelButtonTitle}>Submit</Text>
-            </TouchableOpacity>
+            style={styles.signIn}
+            onPress={() => {
+              login(username, password);
+            }}>
+            <LinearGradient
+              colors={['#70416d', '#170a19']}
+              style={styles.signIn}>
+              <Text
+                style={[
+                  styles.textSign,
+                  {
+                    color: '#fff',
+                  },
+                ]}>
+                EDIT PROFILE
+              </Text>
+            </LinearGradient>
+          </TouchableOpacity>
           </View>
         </Animatable.View>
-      </View>
-    </LinearGradient>
+      </ScrollView>
+    </ImageBackground>
   );
 };
 
@@ -144,13 +147,28 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  commandButton: {
-    padding: 15,
-    borderRadius: 10,
-    backgroundColor: '#FF6347',
-    alignItems: 'center',
-    marginTop: 10,
+  signIn: {
+    width: 250,
+    height: 50,
+    marginTop: 30,
+    justifyContent: 'center',
+    alignSelf: 'center',
+    borderRadius: 50,
+    flexDirection: 'row',
   },
+  textSign: {
+    fontSize: 18,
+    marginTop: 10,
+    fontWeight: 'bold',
+  },
+  image: {
+    flex: 1,
+    resizeMode: 'cover',
+    alignItems: 'center',
+   
+    paddingTop: 60,
+  },
+
 
   panelButtonTitle: {
     fontSize: 17,
@@ -159,11 +177,12 @@ const styles = StyleSheet.create({
   },
   action: {
     flexDirection: 'row',
-    marginTop: 10,
-    marginBottom: 10,
+    marginTop: 15,
+    marginBottom: 20,
     borderBottomWidth: 1,
     borderBottomColor: '#a6a6a6',
     paddingBottom: 5,
+    width:300
   },
 
   textInput: {
@@ -171,5 +190,6 @@ const styles = StyleSheet.create({
     marginTop: Platform.OS === 'ios' ? 0 : -12,
     paddingLeft: 10,
     color: '#05375a',
+  
   },
 });
