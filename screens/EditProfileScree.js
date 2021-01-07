@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   TextInput,
   StyleSheet,
+  Alert,
 } from 'react-native';
 
 import {useTheme} from 'react-native-paper';
@@ -15,6 +16,7 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Feather from 'react-native-vector-icons/Feather';
 import LinearGradient from 'react-native-linear-gradient';
 import * as Animatable from 'react-native-animatable';
+import {createUser} from '../utils/apiCalls';
 
 const EditProfileScreen = () => {
   const {colors} = useTheme();
@@ -22,6 +24,9 @@ const EditProfileScreen = () => {
   const [phone, setPhone] = useState('');
   const [qualification, setQualification] = useState('');
   const [location, setLocation] = useState('');
+
+  const editProfile = () => {};
+
   return (
     <LinearGradient colors={['#e8ffde', '#f8fff5']} style={styles.container}>
       <View style={styles.container}>
@@ -128,6 +133,7 @@ const EditProfileScreen = () => {
               style={styles.commandButton}
               onPress={() => {
                 console.log('Clicked');
+                editProfile();
               }}>
               <Text style={styles.panelButtonTitle}>Submit</Text>
             </TouchableOpacity>

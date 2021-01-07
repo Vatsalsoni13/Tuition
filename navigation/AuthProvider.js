@@ -6,10 +6,21 @@ export const AuthContext = createContext();
 import {GoogleSignin} from '@react-native-community/google-signin';
 import {Alert} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import {createUser} from '../utils/apiCalls';
 export const AuthProvider = ({children}) => {
   const [user, setUser] = useState(null);
   const [verify, setVerify] = useState(false);
-  const validate = () => {
+  const validate = async (username) => {
+    await createUser(username)
+      .then((data) => {
+        if (data) {
+          console.log('Success');
+          // Alert.alert('Error');
+        }
+      })
+      .catch((e) => {
+        console.log(e);
+      });
     auth()
       .currentUser.sendEmailVerification()
       .then(() => {
@@ -93,7 +104,7 @@ export const AuthProvider = ({children}) => {
             await auth()
               .createUserWithEmailAndPassword(email, password)
               .then(() => {
-                validate();
+                validate(email);
               })
               .catch((e) => {
                 Alert.alert('Err', e.message.slice(e.message.indexOf(' ')));

@@ -13,6 +13,13 @@ const AppStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
+        name="ChoiceScreen"
+        component={ChoiceScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
         name="ProfileScreen"
         component={ProfileScreen}
         options={{
@@ -22,13 +29,6 @@ const AppStack = () => {
       <Stack.Screen
         name="EditProfileScreen"
         component={EditProfileScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="ChoiceScreen"
-        component={ChoiceScreen}
         options={{
           headerShown: false,
         }}
