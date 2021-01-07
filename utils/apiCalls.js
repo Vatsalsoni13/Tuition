@@ -1,4 +1,4 @@
-const url = 'http://localhost:3000';
+const url = 'https://192.168.1.4:3000';
 export const createUser = async (email) => {
   await fetch(`${url}/user/add`, {
     method: 'POST',
