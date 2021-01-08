@@ -1,15 +1,35 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import ChoiceScreen from '../screens/ChoiceScreen';
 import StudentPanel from './StudentPanel';
 import TutorPanel from './TutorPanel';
-import CreateBatch from '../screens/CreateBatch';
 import ProfileScreen from '../screens/ProfileScree';
 import EditProfileScreen from '../screens/EditProfileScree';
+import AsyncStorage from '@react-native-community/async-storage';
+import {useState} from 'react';
 
 const Stack = createStackNavigator();
 
 const AppStack = () => {
+  const [isFirstLaunch, setIsFirstLaunch] = useState(null);
+  let routeName;
+  useEffect(() => {
+    AsyncStorage.getItem('mongoId').then((value) => {
+      if (value == null) {
+        // AsyncStorage.setItem('firstUserData', 'true');
+        setIsFirstLaunch(true);
+      } else {
+        setIsFirstLaunch(false);
+      }
+    });
+  }, []);
+  if (isFirstLaunch === null) {
+    return null;
+  } else if (isFirstLaunch === true) {
+    routeName = 'EditProfileScreen';
+  } else {
+    routeName = 'ChoiceScreen';
+  }
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -43,13 +63,13 @@ const AppStack = () => {
           },
         }}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="CreateBatch"
         component={CreateBatch}
         options={{
           headerShown: false,
         }}
-      />
+      /> */}
       <Stack.Screen
         name="TutorPanel"
         component={TutorPanel}

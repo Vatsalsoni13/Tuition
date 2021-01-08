@@ -15,7 +15,9 @@ export const AuthProvider = ({children}) => {
       .then((data) => {
         if (data) {
           console.log('Success');
+
           // Alert.alert('Error');
+          // AsyncStorage.setItem('mongoId',)
         }
       })
       .catch((e) => {

@@ -6,7 +6,7 @@ import {
   TextInput,
   StyleSheet,
   ImageBackground,
-  ScrollView
+  ScrollView,
 } from 'react-native';
 
 import {useTheme} from 'react-native-paper';
@@ -26,18 +26,25 @@ const EditProfileScreen = () => {
   const [qualification, setQualification] = useState('');
   const [location, setLocation] = useState('');
 
-  const editProfile = () => {};
+  // const editProfile = () => {};
 
   return (
     <ImageBackground source={require('../profile.jpg')} style={styles.image}>
       <ScrollView style={styles.container}>
-      <Animatable.View style={styles.container} animation="zoomIn">
+        <Animatable.View style={styles.container} animation="zoomIn">
           <View style={{alignItems: 'center'}}>
-            <Text style={{marginTop: 30, fontSize: 30, fontWeight: 'bold',color:'white'}}>
+            <Text
+              style={{
+                marginTop: 30,
+                fontSize: 30,
+                fontWeight: 'bold',
+                color: 'white',
+              }}>
               John Doe
             </Text>
           </View>
-          <View style={{paddingVertical:60,paddingHorizontal:60,marginTop:40}}>
+          <View
+            style={{paddingVertical: 60, paddingHorizontal: 60, marginTop: 40}}>
             <View style={styles.action}>
               <FontAwesome name="user-o" color="white" size={20} />
               <TextInput
@@ -77,11 +84,7 @@ const EditProfileScreen = () => {
               />
             </View>
             <View style={styles.action}>
-              <FontAwesome5
-                name="user-graduate"
-                color="white"
-                size={20}
-              />
+              <FontAwesome5 name="user-graduate" color="white" size={20} />
 
               {/* <FontAwesome name="envelope-o" color={colors.text} size={20} /> */}
               <TextInput
@@ -120,24 +123,24 @@ const EditProfileScreen = () => {
               />
             </View>
             <TouchableOpacity
-            style={styles.signIn}
-            onPress={() => {
-              login(username, password);
-            }}>
-            <LinearGradient
-              colors={['#70416d', '#170a19']}
-              style={styles.signIn}>
-              <Text
-                style={[
-                  styles.textSign,
-                  {
-                    color: '#fff',
-                  },
-                ]}>
-                EDIT PROFILE
-              </Text>
-            </LinearGradient>
-          </TouchableOpacity>
+              style={styles.signIn}
+              onPress={() => {
+                login(username, password);
+              }}>
+              <LinearGradient
+                colors={['#70416d', '#170a19']}
+                style={styles.signIn}>
+                <Text
+                  style={[
+                    styles.textSign,
+                    {
+                      color: '#fff',
+                    },
+                  ]}>
+                  EDIT PROFILE
+                </Text>
+              </LinearGradient>
+            </TouchableOpacity>
           </View>
         </Animatable.View>
       </ScrollView>
@@ -169,10 +172,9 @@ const styles = StyleSheet.create({
     flex: 1,
     resizeMode: 'cover',
     alignItems: 'center',
-   
+
     paddingTop: 60,
   },
-
 
   panelButtonTitle: {
     fontSize: 17,
@@ -186,7 +188,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#a6a6a6',
     paddingBottom: 5,
-    width:300
+    width: 300,
   },
 
   textInput: {
@@ -194,6 +196,5 @@ const styles = StyleSheet.create({
     marginTop: Platform.OS === 'ios' ? 0 : -12,
     paddingLeft: 10,
     color: '#05375a',
-  
   },
 });

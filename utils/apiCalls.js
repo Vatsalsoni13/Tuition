@@ -15,7 +15,36 @@ export const createUser = async (email) => {
     }),
   })
     .then((response) => {
-      console.log(response.json());
+      response.json();
+    })
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+export const getUser = async () => {
+  await fetch(`${url}/`);
+};
+
+export const updateUser = async (name, qualification, location, phone) => {
+  await fetch(`${url}/user/update/${userId}`, {
+    method: 'PUT',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      name: name,
+      qualification: qualification,
+      location: location,
+      phone: phone,
+    }),
+  })
+    .then((response) => {
+      console.log(JSON.stringify(response));
     })
     .catch((err) => {
       console.log(err);
