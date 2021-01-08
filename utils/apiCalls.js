@@ -22,39 +22,40 @@ export const createUser = async (email) => {
     });
 };
 
-export const createBatch = async (batch)=>
-{ 
-  batch.userId="5ff5ff895373573eecd7bbfd";
-  
-  console.log(batch,"IN HERE");
-    try {
-       let createdBatch= await fetch(`${url}/tutor/create_batch`,{
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(batch),
-        })
-        console.log(createdBatch);
-    } catch (error) {
-        console.log(error,"CREATE BATCH ERROR");    
-      }
-}
+export const createBatch = async (batch) => {
+  batch.userId = '5ff5ff895373573eecd7bbfd';
 
-export const getSearchResult = async(std,subject)=>{
+  console.log(batch, 'IN HERE');
+  try {
+    let createdBatch = await fetch(`${url}/tutor/create_batch`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(batch),
+    });
+    console.log(createdBatch);
+  } catch (error) {
+    console.log(error, 'CREATE BATCH ERROR');
+  }
+};
 
-  console.log(std,subject,"IN HERE");
-  try {       
-     let batches= await fetch(`${url}/student/search_batches?std=${std}&subject=${subject}`,{
+export const getSearchResult = async (std, subject) => {
+  console.log(std, subject, 'IN HERE');
+  try {
+    let batches = await fetch(
+      `${url}/student/search_batches?std=${std}&subject=${subject}`,
+      {
         method: 'GET',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
-      })
-      return await batches.json();
+      },
+    );
+    return await batches.json();
   } catch (error) {
-      console.log(error,"SEARCH BATCH ERROR");    
-    }
-}
+    console.log(error, 'SEARCH BATCH ERROR');
+  }
+};
