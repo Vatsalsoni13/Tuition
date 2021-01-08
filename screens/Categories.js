@@ -26,10 +26,20 @@ const Categories = () => {
   const [data, setData] = useState([]);
   const [arrived, setArrived] = useState(false);
 
+
   const search = async () => {
     let d = await getSearchResult(std, subject);
     setData(d);
-  };
+  }
+  const enroll = async(batchId)=>
+  {
+    try {
+      await getEnrolled(studentId,batchId);
+    } catch (error) {
+      console.log(error); 
+    }
+    
+  }
   useEffect(() => {
     console.log(data);
     setArrived(true);
@@ -125,7 +135,7 @@ const Categories = () => {
                   <View style={{padding:20,flex:1}}>
                     <TouchableOpacity
                       onPress={() => {
-                       
+                        enroll(item.info._id);
                       }}
                       activeOpacity={0.5}>
                       <LinearGradient

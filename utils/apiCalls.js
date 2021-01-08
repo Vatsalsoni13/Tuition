@@ -58,3 +58,22 @@ export const getSearchResult = async(std,subject)=>{
       console.log(error,"SEARCH BATCH ERROR");    
     }
 }
+
+
+export const getEnrolled = async (studentId,batchId) => {
+
+  try {       
+    let enrolled= await fetch(`${url}/student/enroll_batch?studentId=${studentId}&batchId=${batchId}`,{
+       method: 'GET',
+       headers: {
+         Accept: 'application/json',
+         'Content-Type': 'application/json',
+       },
+     })
+     console.log(enrolled);
+ } catch (error) {
+     console.log(error,"ENROLL ERROR");    
+   }
+
+
+} 
