@@ -17,16 +17,24 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Feather from 'react-native-vector-icons/Feather';
 import LinearGradient from 'react-native-linear-gradient';
 import * as Animatable from 'react-native-animatable';
-import {createUser} from '../utils/apiCalls';
+import {useEffect} from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
+import {updateUser} from '../utils/apiCalls';
 
-const EditProfileScreen = () => {
+const EditProfileScreen = ({navigation}) => {
   const {colors} = useTheme();
+  const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [qualification, setQualification] = useState('');
   const [location, setLocation] = useState('');
 
   // const editProfile = () => {};
+  useEffect(() => {
+    AsyncStorage.getItem('email').then((value) => {
+      setEmail(value);
+    });
+  }, []);
 
   return (
     <ImageBackground source={require('../profile.jpg')} style={styles.image}>
@@ -40,7 +48,7 @@ const EditProfileScreen = () => {
                 fontWeight: 'bold',
                 color: 'white',
               }}>
-              John Doe
+              {email}
             </Text>
           </View>
           <View
@@ -124,8 +132,10 @@ const EditProfileScreen = () => {
             </View>
             <TouchableOpacity
               style={styles.signIn}
-              onPress={() => {
-                login(username, password);
+              onPress={async () => {
+                updateUser(name, qualification, location, phone).then(() => {
+                  navigation.replace('ChoiceScreen');
+                });
               }}>
               <LinearGradient
                 colors={['#70416d', '#170a19']}

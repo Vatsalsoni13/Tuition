@@ -7,21 +7,33 @@ import ProfileScreen from '../screens/ProfileScree';
 import EditProfileScreen from '../screens/EditProfileScree';
 import AsyncStorage from '@react-native-community/async-storage';
 import {useState} from 'react';
+import {getUser} from '../utils/apiCalls';
+import {useContext} from 'react';
+import {AuthContext} from './AuthProvider';
 
 const Stack = createStackNavigator();
 
 const AppStack = () => {
   const [isFirstLaunch, setIsFirstLaunch] = useState(null);
+  const {user} = useContext(AuthContext);
   let routeName;
   useEffect(() => {
-    AsyncStorage.getItem('mongoId').then((value) => {
-      if (value == null) {
-        // AsyncStorage.setItem('firstUserData', 'true');
-        setIsFirstLaunch(true);
-      } else {
-        setIsFirstLaunch(false);
-      }
-    });
+    console.log(user);
+    getUser(user.email)
+      .then(() => {
+        console.log('SignedIn');
+        AsyncStorage.getItem('check').then((value) => {
+          if (value === 'false') {
+            console.log('Launch');
+            setIsFirstLaunch(true);
+          } else {
+            setIsFirstLaunch(false);
+          }
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
   if (isFirstLaunch === null) {
     return null;
@@ -31,7 +43,7 @@ const AppStack = () => {
     routeName = 'ChoiceScreen';
   }
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName={routeName}>
       <Stack.Screen
         name="ChoiceScreen"
         component={ChoiceScreen}
