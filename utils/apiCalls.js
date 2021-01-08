@@ -1,6 +1,4 @@
-import AsyncStorage from '@react-native-community/async-storage';
-
-const url = 'https://tuitionapp13.herokuapp.com';
+const url = 'https://192.168.1.4:3000';
 export const createUser = async (email) => {
   await fetch(`${url}/user/add`, {
     method: 'POST',
