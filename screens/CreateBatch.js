@@ -18,6 +18,8 @@ import Feather from 'react-native-vector-icons/Feather';
 import {Button} from 'react-native-paper';
 import DatePicker from 'react-native-datepicker';
 import {ScrollView} from 'react-native-gesture-handler';
+import {createBatch} from '../utils/apiCalls';
+
 const TodaysDate = () => {
   var today = new Date();
   var dd = String(today.getDate()).padStart(2, '0');
@@ -37,6 +39,20 @@ const CreateBatch = ({navigation}) => {
   const [std, setStd] = React.useState('NULL');
   const [size, setSize] = React.useState(0);
   const [subject, setSubject] = React.useState('NULL');
+
+  const sendData = async ()=>{
+    let batch={};
+    batch.title=title;
+    batch.description=description;
+    batch.fees=fees;
+    batch.date = startDate;
+    batch.exp_date= endDate;
+    batch.std=std;
+    batch.size=size;
+    batch.subject=subject;
+    await createBatch(batch);
+  }
+
 
   return (
     
@@ -179,7 +195,7 @@ const CreateBatch = ({navigation}) => {
           <TouchableOpacity
             style={styles.signIn}
             onPress={() => {
-              login(username, password);
+             sendData();
             }}>
             <LinearGradient
               colors={['#70416d', '#170a19']}

@@ -44,7 +44,7 @@ const AuthStack = () => {
   return (
     <Stack.Navigator initialRouteName={routeName} headerMode="none">
       <Stack.Screen name="IntoductionScreen" component={IntoductionScreen} />
-      {/* <Stack.Screen name="SplashScreen" component={SplashScreen} /> */}
+      <Stack.Screen name="SplashScreen" component={SplashScreen} />
       <Stack.Screen name="SignInScreen" component={SignInScreen} />
       <Stack.Screen name="SignUpScreen" component={SignUpScreen} />
       <Stack.Screen name="ChoiceScreen" component={ChoiceScreen} />

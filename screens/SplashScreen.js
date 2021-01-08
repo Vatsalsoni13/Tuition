@@ -27,7 +27,7 @@ const SplashScreenScreen = ({navigation}) => {
         onAnimationFinish={() => {
           console.log('Finished');
           navigation.replace('SignInScreen');
-          setLoad(false);
+          // setLoad(false);
         }}
       />
     </View>

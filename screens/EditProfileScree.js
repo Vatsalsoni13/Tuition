@@ -5,12 +5,8 @@ import {
   TouchableOpacity,
   TextInput,
   StyleSheet,
-<<<<<<< HEAD
   ImageBackground,
   ScrollView
-=======
-  Alert,
->>>>>>> d1f17eb3456a40f2942244123cdfaed38829baaf
 } from 'react-native';
 
 import {useTheme} from 'react-native-paper';
@@ -124,7 +120,6 @@ const EditProfileScreen = () => {
               />
             </View>
             <TouchableOpacity
-<<<<<<< HEAD
             style={styles.signIn}
             onPress={() => {
               login(username, password);
@@ -143,15 +138,6 @@ const EditProfileScreen = () => {
               </Text>
             </LinearGradient>
           </TouchableOpacity>
-=======
-              style={styles.commandButton}
-              onPress={() => {
-                console.log('Clicked');
-                editProfile();
-              }}>
-              <Text style={styles.panelButtonTitle}>Submit</Text>
-            </TouchableOpacity>
->>>>>>> d1f17eb3456a40f2942244123cdfaed38829baaf
           </View>
         </Animatable.View>
       </ScrollView>
