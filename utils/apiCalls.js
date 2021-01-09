@@ -1,6 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage';
 
 const url = 'https://tuitionapp13.herokuapp.com';
+const local = 'http://localhost:3000/';
 export const createUser = async (email) => {
   try {
     let user = await fetch(`${url}/user/add`, {
@@ -91,8 +92,9 @@ export const updateUser = async (name, qualification, location, phone) => {
 };
 
 export const createBatch = async (batch) => {
-  batch.userId = '5ff5ff895373573eecd7bbfd';
-
+  batch.userId = await AsyncStorage.getItem('mongoId').then((value) => {
+    return value;
+  });
   console.log(batch, 'IN HERE');
   try {
     let createdBatch = await fetch(`${url}/tutor/create_batch`, {
@@ -124,27 +126,49 @@ export const getSearchResult = async (std, subject) => {
     );
     return await batches.json();
   } catch (error) {
+    console.log(error, 'SEARCH BATCH ERROR');
+  }
+};
 
-      console.log(error,"SEARCH BATCH ERROR");    
-    }
-}
+export const getEnrolled = async (studentId, batchId) => {
+  console.log(studentId, batchId, 'IN ENROLLED');
+  try {
+    let enrolled = await fetch(
+      `${url}/student/enroll_batch?studentId=${studentId}&batchId=${batchId}`,
+      {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+    console.log(enrolled);
+  } catch (error) {
+    console.log(error, 'ENROLL ERROR');
+  }
+};
 
-
-export const getEnrolled = async (studentId,batchId) => {
-
-  try {       
-    let enrolled= await fetch(`${url}/student/enroll_batch?studentId=${studentId}&batchId=${batchId}`,{
-       method: 'GET',
-       headers: {
-         Accept: 'application/json',
-         'Content-Type': 'application/json',
-       },
-     })
-     console.log(enrolled);
- } catch (error) {
-     console.log(error,"ENROLL ERROR");    
-   }
-
-
-} 
-
+export const getEnrolledBatches = async () => {
+  let studentId = await AsyncStorage.getItem('mongoId').then((value) => {
+    return value;
+  });
+  console.log(studentId);
+  try {
+    let enrolledBatches = await fetch(
+      `${url}/student/enrolled_batches?studentId=${studentId}`,
+      {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+    let batches= await enrolledBatches.json();
+    console.log(batches);
+    return batches;
+  } catch (error) {
+    console.log(error, 'GET ENROLLED BATCHES ERROR');
+  }
+};

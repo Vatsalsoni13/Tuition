@@ -10,6 +10,7 @@ import {useState} from 'react';
 import {getUser} from '../utils/apiCalls';
 import {useContext} from 'react';
 import {AuthContext} from './AuthProvider';
+import CreateBatch from '../screens/CreateBatch';
 
 const Stack = createStackNavigator();
 
@@ -75,13 +76,13 @@ const AppStack = () => {
           },
         }}
       />
-      {/* <Stack.Screen
+      <Stack.Screen
         name="CreateBatch"
         component={CreateBatch}
         options={{
           headerShown: false,
         }}
-      /> */}
+      />
       <Stack.Screen
         name="TutorPanel"
         component={TutorPanel}
