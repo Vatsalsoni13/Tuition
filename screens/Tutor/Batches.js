@@ -1,47 +1,107 @@
-import {NavigationContainer} from '@react-navigation/native';
-
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
+  Dimensions,
   ScrollView,
   View,
   Text,
   Button,
   StatusBar,
-  TouchableOpacity,
+  FlatList,
+  ImageBackground,
 } from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import LinearGradient from 'react-native-linear-gradient';
 import Entypo from 'react-native-vector-icons/Entypo';
+import {
+  Card,
+  CardTitle,
+  CardContent,
+  CardAction,
+  CardButton,
+  CardImage,
+} from 'react-native-material-cards';
+import {getCreatedBatches} from '../../utils/apiCalls';
 
 const Batches = ({navigation}) => {
+  const [data, setData] = useState([]);
+  const [val, setVal] = useState(false);
+  const makeCall = async () => {
+    setData(await getCreatedBatches());
+  };
+  useEffect(() => {
+    if (val === false) {
+      makeCall();
+    }
+    console.log(data, 'HEY THERE');
+    setVal(true);
+  }, [data]);
+  const renderComponent = ({item}) => (
+    <View style={{marginBottom: 20, padding: 10}}>
+      <Card style={{borderRadius: 20, borderWidth: 1, borderColor: 'black'}}>
+        <CardImage
+          source={{
+            uri: 'https://i.imgur.com/SOQFYw0.png',
+          }}
+          title={item.info.std + '  ' + item.info.subject}
+        />
+        <CardTitle
+          title={item.info.title}
+          subtitle={
+            'Date of begin :' + new Date(item.info.date_of_begin).toDateString()
+          }
+        />
+        <CardContent text={item.info.description} />
+        <CardAction separator={true} inColumn={false}>
+          <View style={{padding: 20, flex: 1}}>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('BatchPanel');
+              }}
+              activeOpacity={0.5}>
+              <LinearGradient
+                colors={['#c31432', '#240b36']}
+                style={styles.btn}>
+                <Text style={{color: '#fff', fontSize: 18}}>Explore</Text>
+              </LinearGradient>
+            </TouchableOpacity>
+          </View>
+        </CardAction>
+      </Card>
+    </View>
+  );
+
   return (
-    <View style={{flex: 1, backgroundColor: '#f3f3f3'}}>
-      {/* <ActionButton
-        buttonColor="#d8345f"
-        size={65}
-        onPress={() => {
-          navigation.navigate('CreateBatch');
-        }}
-      /> */}
-      <TouchableOpacity
-        onPress={() => {
-          // add icon
-          //navigate to Add Contact screen
-          navigation.navigate('BatchPanel');
-        }}
-        // style={styles.floatButton}
-      >
-        <Text>Inside Button</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => {
-          // add icon
-          //navigate to Add Contact screen
-          navigation.navigate('CreateBatch');
-        }}
-        style={styles.floatButton}>
-        <Entypo name="plus" size={30} color="#fff" />
-      </TouchableOpacity>
+    <View style={{flex: 1}}>
+      <ScrollView>
+        <View style={{marginBottom: 15, marginTop: 15}}>
+          <FlatList
+            style={{padding: 25}}
+            data={data}
+            renderItem={renderComponent}
+            keyExtractor={(item) => item._id}
+          />
+          <FlatList
+            style={{padding: 25}}
+            data={data}
+            renderItem={renderComponent}
+            keyExtractor={(item) => item._id}
+          />
+        </View>
+      </ScrollView>
+      <View style={styles.floatButton}>
+        <TouchableOpacity
+          onPress={() => {
+            // add icon
+            //navigate to Add Contact screen
+            navigation.navigate('CreateBatch');
+          }}
+          // style={styles.floatButton}
+        >
+          <Entypo name="plus" size={30} color="#fff" />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -52,16 +112,31 @@ const styles = StyleSheet.create({
     height: 22,
     color: 'white',
   },
+  btn: {
+    alignItems: 'center',
+    alignSelf: 'center',
+    justifyContent: 'center',
+    padding: 10,
+    borderRadius: 50,
+    height: 45,
+    width: Dimensions.get('screen').width / 3,
+  },
+  image: {
+    flex: 1,
+    resizeMode: 'cover',
+  },
   floatButton: {
     borderWidth: 1,
     borderColor: 'rgba(0,0,0,0.2)',
     alignItems: 'center',
     justifyContent: 'center',
-    width: 60,
+    width: 70,
+    height: 70,
     position: 'absolute',
     bottom: 10,
     right: 10,
-    height: 60,
+    // zIndex: 2,
+    opacity: 0.9,
     backgroundColor: '#B83227',
     borderRadius: 100,
   },

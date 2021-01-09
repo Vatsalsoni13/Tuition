@@ -12,7 +12,7 @@ import {
 import {Picker} from '@react-native-community/picker';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
-import {getSearchResult} from '../../utils/apiCalls';
+import {getEnrolled, getSearchResult} from '../../utils/apiCalls';
 import {
   Card,
   CardTitle,

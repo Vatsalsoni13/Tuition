@@ -11,7 +11,6 @@ import {useState} from 'react';
 import {getUser} from '../utils/apiCalls';
 import {useContext} from 'react';
 import {AuthContext} from './AuthProvider';
-import CreateBatch from '../screens/CreateBatch';
 import BatchPanel from './BatchPanel';
 
 const Stack = createStackNavigator();
