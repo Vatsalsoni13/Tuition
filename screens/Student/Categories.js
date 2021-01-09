@@ -7,12 +7,12 @@ import {
   Dimensions,
   ScrollView,
   FlatList,
-  ImageBackground
+  ImageBackground,
 } from 'react-native';
 import {Picker} from '@react-native-community/picker';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
-import {getSearchResult,getEnrolled} from '../utils/apiCalls';
+import {getSearchResult} from '../../utils/apiCalls';
 import {
   Card,
   CardTitle,
@@ -28,88 +28,78 @@ const Categories = () => {
   const [data, setData] = useState([]);
   const [arrived, setArrived] = useState(false);
 
-
   const search = async () => {
     let d = await getSearchResult(std, subject);
     setData(d);
-  }
-  const enroll = async(batchId)=>
-  { 
+  };
+  const enroll = async (batchId) => {
     console.log(batchId);
     try {
       let studentId = await AsyncStorage.getItem('mongoId').then((value) => {
         return value;
       });
-          await getEnrolled(studentId,batchId);
+      await getEnrolled(studentId, batchId);
     } catch (error) {
-      console.log(error); 
+      console.log(error);
     }
-    
-  }
+  };
   useEffect(() => {
     console.log(data);
     setArrived(true);
   }, [data]);
 
   const renderComponent = ({item}) => (
-    <View style={{marginBottom:20,padding:10}}>
-    <Card style={{borderRadius:20,borderWidth:1,borderColor:'black'}}>
-      <CardImage
-        source={{
-          uri:
-            'https://i.imgur.com/SOQFYw0.png',
-        }}
-        
-        title={item.info.std + '  ' + item.info.subject}
-      />
-      <CardTitle
-        title={item.info.title}
-        subtitle={
-          'Date of begin :' +
-          new Date(item.info.date_of_begin).toDateString()
-        }
-      />
-      <CardContent text={item.info.description} />
-      <CardAction separator={true} inColumn={false}>
-      <View style={{padding:20,flex:1}}>
-        <TouchableOpacity
-          onPress={() => {
-            enroll(item._id);
+    <View style={{marginBottom: 20, padding: 10}}>
+      <Card style={{borderRadius: 20, borderWidth: 1, borderColor: 'black'}}>
+        <CardImage
+          source={{
+            uri: 'https://i.imgur.com/SOQFYw0.png',
           }}
-          activeOpacity={0.5}>
-          <LinearGradient
-            colors={['#c31432', '#240b36']}
-            style={styles.btn2}>
-            <Text style={{color: '#fff', fontSize: 18}}>
-              Subscribe
-            </Text>
-          </LinearGradient>
-        </TouchableOpacity>
-        </View>
-        <View style={{padding:20,flex:1}}>
-        <TouchableOpacity
-          onPress={() => {
-           
-          }}
-          activeOpacity={0.5}>
-          <LinearGradient
-            colors={['#c31432', '#240b36']}
-            style={styles.btn2}>
-            <Text style={{color: '#fff', fontSize: 18}}>
-              Explore 
-            </Text>
-          </LinearGradient>
-        </TouchableOpacity>
-        </View>
-      </CardAction>
-    </Card>
+          title={item.info.std + '  ' + item.info.subject}
+        />
+        <CardTitle
+          title={item.info.title}
+          subtitle={
+            'Date of begin :' + new Date(item.info.date_of_begin).toDateString()
+          }
+        />
+        <CardContent text={item.info.description} />
+        <CardAction separator={true} inColumn={false}>
+          <View style={{padding: 20, flex: 1}}>
+            <TouchableOpacity
+              onPress={() => {
+                enroll(item._id);
+              }}
+              activeOpacity={0.5}>
+              <LinearGradient
+                colors={['#c31432', '#240b36']}
+                style={styles.btn2}>
+                <Text style={{color: '#fff', fontSize: 18}}>Subscribe</Text>
+              </LinearGradient>
+            </TouchableOpacity>
+          </View>
+          <View style={{padding: 20, flex: 1}}>
+            <TouchableOpacity onPress={() => {}} activeOpacity={0.5}>
+              <LinearGradient
+                colors={['#c31432', '#240b36']}
+                style={styles.btn2}>
+                <Text style={{color: '#fff', fontSize: 18}}>Explore</Text>
+              </LinearGradient>
+            </TouchableOpacity>
+          </View>
+        </CardAction>
+      </Card>
     </View>
-  )
- 
+  );
+
   return (
     <View style={styles.container}>
-    <ImageBackground source={{uri:"https://i.pinimg.com/originals/88/bc/78/88bc78bc2d963bdd11f588db8e1d2acf.jpg"}} style={styles.image}>
-     
+      <ImageBackground
+        source={{
+          uri:
+            'https://i.pinimg.com/originals/88/bc/78/88bc78bc2d963bdd11f588db8e1d2acf.jpg',
+        }}
+        style={styles.image}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <View>
             <Picker
@@ -142,7 +132,7 @@ const Categories = () => {
               }}
               onValueChange={(itemValue, itemIndex) => setSubject(itemValue)}>
               <Picker.Item label="Select Subject" value="ALL" />
-              <Picker.Item label="Mathemathics" value="Maths" />
+              <Picker.Item label="Mathemathics" value="Math" />
               <Picker.Item label="Science" value="Science" />
               <Picker.Item label="History" value="History" />
               <Picker.Item label="Geography" value="Geography" />
@@ -166,9 +156,9 @@ const Categories = () => {
             </TouchableOpacity>
           </View>
         </View>
-        
+
         {arrived ? (
-          <View style={{marginBottom:150}}>
+          <View style={{marginBottom: 150}}>
             <FlatList
               style={{padding: 25}}
               data={data}
@@ -177,7 +167,7 @@ const Categories = () => {
             />
           </View>
         ) : null}
-        </ImageBackground>
+      </ImageBackground>
     </View>
   );
 };

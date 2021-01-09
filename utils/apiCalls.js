@@ -35,7 +35,7 @@ export const getUser = async (email) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        console.log(data._id);
         AsyncStorage.setItem('mongoId', data._id);
         AsyncStorage.setItem('email', data.email);
         if (
@@ -165,7 +165,7 @@ export const getEnrolledBatches = async () => {
         },
       },
     );
-    let batches= await enrolledBatches.json();
+    let batches = await enrolledBatches.json();
     console.log(batches);
     return batches;
   } catch (error) {

@@ -5,12 +5,14 @@ import StudentPanel from './StudentPanel';
 import TutorPanel from './TutorPanel';
 import ProfileScreen from '../screens/ProfileScree';
 import EditProfileScreen from '../screens/EditProfileScree';
+import CreateBatch from '../screens/Tutor/CreateBatch';
 import AsyncStorage from '@react-native-community/async-storage';
 import {useState} from 'react';
 import {getUser} from '../utils/apiCalls';
 import {useContext} from 'react';
 import {AuthContext} from './AuthProvider';
 import CreateBatch from '../screens/CreateBatch';
+import BatchPanel from './BatchPanel';
 
 const Stack = createStackNavigator();
 
@@ -86,6 +88,16 @@ const AppStack = () => {
       <Stack.Screen
         name="TutorPanel"
         component={TutorPanel}
+        options={{
+          title: 'Tutor Panel',
+          headerStyle: {
+            backgroundColor: '#A15D98',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="BatchPanel"
+        component={BatchPanel}
         options={{
           title: 'Tutor Panel',
           headerStyle: {

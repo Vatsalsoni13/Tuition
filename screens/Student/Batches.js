@@ -11,7 +11,7 @@ import {
   Button,
   StatusBar,
   FlatList,
-  ImageBackground
+  ImageBackground,
 } from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
@@ -24,21 +24,19 @@ import {
   CardButton,
   CardImage,
 } from 'react-native-material-cards';
-import {getEnrolledBatches,getEnrolled} from '../utils/apiCalls';
-import ActionButton from 'react-native-action-button';
+import {getEnrolledBatches, getEnrolled} from '../../utils/apiCalls';
 
 const Batches = ({navigation}) => {
   const [data, setData] = useState([]);
-  const [val,setVal] =useState(false);
-  const makeCall = async ()=>{
+  const [val, setVal] = useState(false);
+  const makeCall = async () => {
     setData(await getEnrolledBatches());
-  }
+  };
   useEffect(() => {
-    if(val===false)
-    {
+    if (val === false) {
       makeCall();
     }
-    console.log(data,"HEY THERE");
+    console.log(data, 'HEY THERE');
     setVal(true);
   }, [data]);
   const renderComponent = ({item}) => (
@@ -71,20 +69,25 @@ const Batches = ({navigation}) => {
       </Card>
     </View>
   );
-  
+
   return (
-    <ImageBackground source={{uri:"https://i.pinimg.com/736x/23/0b/cc/230bccc0624c99a30686bb469b9d604c.jpg"}} style={styles.image}>
-    <View style={{flex:1}}>
-    <View style={{marginBottom:15,marginTop:15}}>
-            <FlatList
-              style={{padding: 25}}
-              data={data}
-              renderItem={renderComponent}
-              keyExtractor={(item) => item._id}
-            />
-   </View>
-   </View>
-   </ImageBackground>
+    <ImageBackground
+      source={{
+        uri:
+          'https://i.pinimg.com/736x/23/0b/cc/230bccc0624c99a30686bb469b9d604c.jpg',
+      }}
+      style={styles.image}>
+      <View style={{flex: 1}}>
+        <View style={{marginBottom: 15, marginTop: 15}}>
+          <FlatList
+            style={{padding: 25}}
+            data={data}
+            renderItem={renderComponent}
+            keyExtractor={(item) => item._id}
+          />
+        </View>
+      </View>
+    </ImageBackground>
   );
 };
 
@@ -96,7 +99,7 @@ const styles = StyleSheet.create({
   },
   btn: {
     alignItems: 'center',
-    alignSelf:'center',
+    alignSelf: 'center',
     justifyContent: 'center',
     padding: 10,
     borderRadius: 50,

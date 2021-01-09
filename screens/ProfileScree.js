@@ -1,19 +1,24 @@
 import React from 'react';
-import {View, SafeAreaView, StyleSheet, Dimensions,ImageBackground} from 'react-native';
+import {
+  View,
+  SafeAreaView,
+  StyleSheet,
+  Dimensions,
+  ImageBackground,
+} from 'react-native';
 import {Avatar, Title, Text} from 'react-native-paper';
 import LinearGradient from 'react-native-linear-gradient';
 import * as Animatable from 'react-native-animatable';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome5';
-import { ScrollView } from 'react-native-gesture-handler';
+import {ScrollView} from 'react-native-gesture-handler';
 
 const ProfileScreen = ({navigation}) => {
   return (
-   
-  
-    
-      <ImageBackground source={require('../profile.jpg')} style={styles.image}>
+    <ImageBackground
+      source={require('../assets/profile.jpg')}
+      style={styles.image}>
       <ScrollView style={styles.container}>
         <Animatable.View animation="zoomIn">
           <View
@@ -25,14 +30,16 @@ const ProfileScreen = ({navigation}) => {
               alignItems: 'center',
               justifyContent: 'space-between',
             }}>
-            <Text style={{fontSize: 35,color:"#fdcfdf",fontWeight:'bold'}}>PROFILE</Text>
+            <Text style={{fontSize: 35, color: '#fdcfdf', fontWeight: 'bold'}}>
+              PROFILE
+            </Text>
             <FontAwesome
               onPress={() => {
                 navigation.navigate('EditProfileScreen');
               }}
               name="edit"
               size={25}
-              style={{color:"#fbf6f0"}}
+              style={{color: '#fbf6f0'}}
             />
           </View>
           <View style={styles.userInfoSection}>
@@ -47,16 +54,14 @@ const ProfileScreen = ({navigation}) => {
                 source={require('../assets/profile_icon.png')}
                 style={{height: 300, width: 300}}
               />
-              <View style={{alignItems: 'center',margin:30}}>
+              <View style={{alignItems: 'center', margin: 30}}>
                 <Title
                   style={[
                     styles.title,
                     {
-                     
-                      fontSize:30,
+                      fontSize: 30,
                     },
-                  ]}
-                  >
+                  ]}>
                   John Doe
                 </Title>
                 {/* <Caption style={styles.caption}>@j_doe</Caption> */}
@@ -83,9 +88,8 @@ const ProfileScreen = ({navigation}) => {
             </View>
           </View>
         </Animatable.View>
-        </ScrollView>
-        </ImageBackground>
-     
+      </ScrollView>
+    </ImageBackground>
   );
 };
 
@@ -105,7 +109,6 @@ const styles = StyleSheet.create({
   userInfoSection: {
     paddingHorizontal: 30,
     marginBottom: 25,
-    
   },
   title: {
     fontSize: 24,
