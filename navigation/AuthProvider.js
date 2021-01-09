@@ -6,16 +6,16 @@ export const AuthContext = createContext();
 import {GoogleSignin} from '@react-native-community/google-signin';
 import {Alert} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import {createUser} from '../utils/apiCalls';
+import {createUser, getUser} from '../utils/apiCalls';
 export const AuthProvider = ({children}) => {
   const [user, setUser] = useState(null);
   const [verify, setVerify] = useState(false);
+  const [check, setCheck] = useState(false);
   const validate = async (username) => {
     await createUser(username)
       .then((data) => {
         if (data) {
           console.log('Success');
-          // Alert.alert('Error');
         }
       })
       .catch((e) => {
@@ -51,24 +51,19 @@ export const AuthProvider = ({children}) => {
         setUser,
         verify,
         setVerify,
-        logout: async () => {
-          try {
-            await auth()
-              .signOut()
-              .then(() => {
-                setVerify(false);
-              })
-              .catch((e) => {
-                Alert.alert('Error', e.message.slice(e.message.indexOf(' ')));
-              });
-          } catch (e) {
-            console.log(e);
-          }
-        },
         login: async (email, password) => {
           try {
             await auth()
               .signInWithEmailAndPassword(email, password)
+              // .then(async () => {
+              //   await getUser(email)
+              //     .then(() => {
+              //       console.log('SignedIn');
+              //     })
+              //     .catch((err) => {
+              //       console.log(err);
+              //     });
+              // })
               .catch((e) => {
                 Alert.alert('Error', e.message.slice(e.message.indexOf(' ')));
               });
@@ -87,14 +82,21 @@ export const AuthProvider = ({children}) => {
             );
 
             // Sign-in the user with the credential
-            return auth().signInWithCredential(googleCredential);
-            // .then(() => {
-            //   auth()
-            //     .currentUser.sendEmailVerification()
-            //     .then(() => {
-            //       validate();
-            //     });
-            // });
+            return auth()
+              .signInWithCredential(googleCredential)
+              .then(() => {
+                console.log('Google', auth().currentUser.email);
+                let email = auth().currentUser.email;
+                createUser(email)
+                  .then((data) => {
+                    if (data) {
+                      console.log('Success');
+                    }
+                  })
+                  .catch((e) => {
+                    console.log(e);
+                  });
+              });
           } catch (e) {
             console.log({e});
           }
@@ -111,6 +113,23 @@ export const AuthProvider = ({children}) => {
               });
           } catch (e) {
             console.log('AAA', e);
+          }
+        },
+        logout: async () => {
+          try {
+            await auth()
+              .signOut()
+              .then(() => {
+                setVerify(false);
+                AsyncStorage.removeItem('check');
+                AsyncStorage.removeItem('mongoId');
+                AsyncStorage.removeItem('email');
+              })
+              .catch((e) => {
+                Alert.alert('Error', e.message.slice(e.message.indexOf(' ')));
+              });
+          } catch (e) {
+            console.log(e);
           }
         },
       }}>
