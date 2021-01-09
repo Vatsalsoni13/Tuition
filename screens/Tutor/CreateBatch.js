@@ -12,56 +12,54 @@ import {
 } from 'react-native';
 import {Picker} from '@react-native-community/picker';
 import * as Animatable from 'react-native-animatable';
+// import DateTimePicker from '@react-native-community/datetimepicker';
+import DatePicker from 'react-native-date-picker';
 import LinearGradient from 'react-native-linear-gradient';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import Feather from 'react-native-vector-icons/Feather';
-import {Button} from 'react-native-paper';
-import DatePicker from 'react-native-datepicker';
 import {ScrollView} from 'react-native-gesture-handler';
-import {createBatch} from '../utils/apiCalls';
+import {createBatch} from '../../utils/apiCalls';
 
 const TodaysDate = () => {
   var today = new Date();
   var dd = String(today.getDate()).padStart(2, '0');
   var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
   var yyyy = today.getFullYear();
-  today = dd + '-' + mm + '-' + yyyy;
-  // today = new Date().toISOString().slice(0, 10);
-  // console.log(today);
+  today = yyyy + '-' + mm + '-' + dd;
   return today;
 };
 const CreateBatch = ({navigation}) => {
   const [title, setTitle] = React.useState('');
   const [description, setDescription] = React.useState('');
   const [fees, setFees] = React.useState('');
-  const [startDate, setStartDate] = React.useState(TodaysDate());
-  const [endDate, setEndDate] = React.useState(TodaysDate());
+  const [startDate, setStartDate] = React.useState(new Date());
+  const [endDate, setEndDate] = React.useState(new Date());
   const [std, setStd] = React.useState('NULL');
-  const [size, setSize] = React.useState(0);
+  const [size, setSize] = React.useState('');
   const [subject, setSubject] = React.useState('NULL');
 
-  const sendData = async ()=>{
-    let batch={};
-    batch.title=title;
-    batch.description=description;
-    batch.fees=fees;
+  const sendData = async () => {
+    let batch = {};
+    batch.title = title;
+    batch.description = description;
+    batch.fees = fees;
     batch.date = startDate;
-    batch.exp_date= endDate;
-    batch.std=std;
-    batch.size=size;
-    batch.subject=subject;
-    await createBatch(batch);
-  }
-
+    batch.exp_date = endDate;
+    batch.std = std;
+    batch.size = size;
+    batch.subject = subject;
+    await createBatch(batch).then(() => {
+      navigation.goBack();
+    });
+  };
 
   return (
-    
-      <ImageBackground source={require('../blur.jpg')} style={styles.image}>
+    <ImageBackground
+      source={require('../../assets/blur.jpg')}
+      style={styles.image}>
       <ScrollView style={styles.container}>
         <Animatable.Image
           animation="bounceIn"
           duraton="2500"
-          source={require('../teach.png')}
+          source={require('../../assets/teach.png')}
           style={{width: 230, height: 210, alignSelf: 'center'}}
           resizeMode="stretch"
         />
@@ -74,6 +72,7 @@ const CreateBatch = ({navigation}) => {
           />
           <TextInput
             style={styles.textInput}
+            keyboardType="number-pad"
             placeholder="Enter Monthly Batch Fees"
             onChangeText={(text) => setFees(text)}
             value={fees}
@@ -86,16 +85,26 @@ const CreateBatch = ({navigation}) => {
             onChangeText={(text) => setDescription(text)}
             value={description}
           />
-          <Text style={{color: 'grey', margin: 10, paddingLeft: 10}}>
+          <Text
+            style={{color: '#000', margin: 10, paddingLeft: 10, fontSize: 20}}>
             Select Starting date
           </Text>
+
           <DatePicker
-            style={{width: 300, marginBottom: 10, paddingLeft: 15}}
+            style={{
+              width: 250,
+              marginBottom: 10,
+              paddingLeft: 15,
+              alignSelf: 'center',
+            }}
+            textColor="#32a852"
+            fadeToColor="rgba(100, 100, 100, 1)"
             date={startDate}
             mode="date"
             placeholder="select date"
             format="YYYY-MM-DD"
-            minDate={TodaysDate()}
+            // minDate={TodaysDate()}
+            minimumDate={new Date()}
             confirmBtnText="Confirm"
             cancelBtnText="Cancel"
             customStyles={{
@@ -108,22 +117,29 @@ const CreateBatch = ({navigation}) => {
               dateInput: {
                 marginLeft: 36,
               },
-              // ... You can check the source to find the other keys.
             }}
             onDateChange={(startDate) => {
               setStartDate(startDate);
             }}
           />
-          <Text style={{color: 'grey', margin: 10, paddingLeft: 10}}>
+          <Text
+            style={{color: '#000', margin: 10, paddingLeft: 10, fontSize: 20}}>
             Select Ending date
           </Text>
           <DatePicker
-            style={{width: 300, marginBottom: 10, paddingLeft: 15}}
+            style={{
+              width: 250,
+              marginBottom: 10,
+              paddingLeft: 15,
+              alignSelf: 'center',
+            }}
+            textColor="red"
             date={endDate}
             mode="date"
             placeholder="select date"
             format="YYYY-MM-DD"
-            minDate={TodaysDate()}
+            // minDate={TodaysDate()}
+            minimumDate={new Date()}
             confirmBtnText="Confirm"
             cancelBtnText="Cancel"
             customStyles={{
@@ -151,11 +167,11 @@ const CreateBatch = ({navigation}) => {
                   'Oops',
                   'Please enter value less than or equal to 10',
                 );
-                setSize(10);
-              } else setSize(parseInt(size));
+                setSize('10');
+              } else setSize(size);
             }}
-            value={parseInt(size)}
-            keyboardType="number-pad"
+            value={size}
+            keyboardType="numeric"
           />
           <Picker
             selectedValue={std}
@@ -195,7 +211,7 @@ const CreateBatch = ({navigation}) => {
           <TouchableOpacity
             style={styles.signIn}
             onPress={() => {
-             sendData();
+              sendData();
             }}>
             <LinearGradient
               colors={['#70416d', '#170a19']}
@@ -212,9 +228,8 @@ const CreateBatch = ({navigation}) => {
             </LinearGradient>
           </TouchableOpacity>
         </Animatable.View>
-        </ScrollView>
-      </ImageBackground>
-   
+      </ScrollView>
+    </ImageBackground>
   );
 };
 

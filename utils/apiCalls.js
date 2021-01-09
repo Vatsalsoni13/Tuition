@@ -2,6 +2,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 const url = 'https://tuitionapp13.herokuapp.com';
 const local = 'http://localhost:3000/';
+
+//User APIs
 export const createUser = async (email) => {
   try {
     let user = await fetch(`${url}/user/add`, {
@@ -35,7 +37,7 @@ export const getUser = async (email) => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        console.log(data._id);
         AsyncStorage.setItem('mongoId', data._id);
         AsyncStorage.setItem('email', data.email);
         if (
@@ -91,6 +93,7 @@ export const updateUser = async (name, qualification, location, phone) => {
   // });
 };
 
+//Tutor APIs
 export const createBatch = async (batch) => {
   batch.userId = await AsyncStorage.getItem('mongoId').then((value) => {
     return value;
@@ -111,6 +114,31 @@ export const createBatch = async (batch) => {
   }
 };
 
+export const getCreatedBatches = async () => {
+  let tutorId = await AsyncStorage.getItem('mongoId').then((value) => {
+    return value;
+  });
+  console.log(tutorId);
+  try {
+    let createdBatches = await fetch(
+      `${url}/tutor/mybatches?tutorId=${tutorId}`,
+      {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+    let batches = await createdBatches.json();
+    console.log(batches);
+    return batches;
+  } catch (error) {
+    console.log(error, 'GET ENROLLED BATCHES ERROR');
+  }
+};
+
+//Student APIs
 export const getSearchResult = async (std, subject) => {
   console.log(std, subject, 'IN HERE');
   try {
@@ -165,7 +193,7 @@ export const getEnrolledBatches = async () => {
         },
       },
     );
-    let batches= await enrolledBatches.json();
+    let batches = await enrolledBatches.json();
     console.log(batches);
     return batches;
   } catch (error) {

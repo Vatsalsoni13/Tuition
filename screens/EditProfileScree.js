@@ -37,7 +37,9 @@ const EditProfileScreen = ({navigation}) => {
   }, []);
 
   return (
-    <ImageBackground source={require('../profile.jpg')} style={styles.image}>
+    <ImageBackground
+      source={require('../assets/profile.jpg')}
+      style={styles.image}>
       <ScrollView style={styles.container}>
         <Animatable.View style={styles.container} animation="zoomIn">
           <View style={{alignItems: 'center'}}>

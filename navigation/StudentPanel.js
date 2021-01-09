@@ -13,10 +13,10 @@ import LinearGradient from 'react-native-linear-gradient';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import Calendar from '../screens/Calendar';
-import Assignments from '../screens/Assignments';
-import Categories from '../screens/Categories';
-import Batches from '../screens/Batches';
+import Calendar from '../screens/Student/Calendar';
+import Assignments from '../screens/Student/Assignments';
+import Categories from '../screens/Student/Categories';
+import Batches from '../screens/Student/Batches';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -26,6 +26,21 @@ const StudentPanel = ({navigation}) => {
       initialRouteName="Calendar"
       activeColor="white"
       style={{backgroundColor: 'tomato'}}>
+      <Tab.Screen
+        name="Batches"
+        component={Batches}
+        options={{
+          tabBarLabel: 'Batches',
+          tabBarColor: '#f69e7b',
+          tabBarIcon: ({color}) => (
+            <MaterialCommunityIcons
+              name="shield-star"
+              color={color}
+              size={26}
+            />
+          ),
+        }}
+      />
       <Tab.Screen
         name="Calendar"
         component={Calendar}
@@ -50,21 +65,6 @@ const StudentPanel = ({navigation}) => {
           tabBarIcon: ({color}) => (
             <MaterialCommunityIcons
               name="book-open-variant"
-              color={color}
-              size={26}
-            />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Batches"
-        component={Batches}
-        options={{
-          tabBarLabel: 'Batches',
-          tabBarColor: '#f69e7b',
-          tabBarIcon: ({color}) => (
-            <MaterialCommunityIcons
-              name="shield-star"
               color={color}
               size={26}
             />

@@ -1,5 +1,3 @@
-import {NavigationContainer} from '@react-navigation/native';
-
 import React, {useEffect, useState} from 'react';
 import {
   SafeAreaView,
@@ -11,11 +9,11 @@ import {
   Button,
   StatusBar,
   FlatList,
-  ImageBackground
+  ImageBackground,
 } from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
-
+import Entypo from 'react-native-vector-icons/Entypo';
 import {
   Card,
   CardTitle,
@@ -24,21 +22,19 @@ import {
   CardButton,
   CardImage,
 } from 'react-native-material-cards';
-import {getEnrolledBatches,getEnrolled} from '../utils/apiCalls';
-import ActionButton from 'react-native-action-button';
+import {getCreatedBatches} from '../../utils/apiCalls';
 
 const Batches = ({navigation}) => {
   const [data, setData] = useState([]);
-  const [val,setVal] =useState(false);
-  const makeCall = async ()=>{
-    setData(await getEnrolledBatches());
-  }
+  const [val, setVal] = useState(false);
+  const makeCall = async () => {
+    setData(await getCreatedBatches());
+  };
   useEffect(() => {
-    if(val===false)
-    {
+    if (val === false) {
       makeCall();
     }
-    console.log(data,"HEY THERE");
+    console.log(data, 'HEY THERE');
     setVal(true);
   }, [data]);
   const renderComponent = ({item}) => (
@@ -59,7 +55,11 @@ const Batches = ({navigation}) => {
         <CardContent text={item.info.description} />
         <CardAction separator={true} inColumn={false}>
           <View style={{padding: 20, flex: 1}}>
-            <TouchableOpacity onPress={() => {}} activeOpacity={0.5}>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('BatchPanel');
+              }}
+              activeOpacity={0.5}>
               <LinearGradient
                 colors={['#c31432', '#240b36']}
                 style={styles.btn}>
@@ -71,20 +71,38 @@ const Batches = ({navigation}) => {
       </Card>
     </View>
   );
-  
+
   return (
-    <ImageBackground source={{uri:"https://i.pinimg.com/736x/23/0b/cc/230bccc0624c99a30686bb469b9d604c.jpg"}} style={styles.image}>
-    <View style={{flex:1}}>
-    <View style={{marginBottom:15,marginTop:15}}>
-            <FlatList
-              style={{padding: 25}}
-              data={data}
-              renderItem={renderComponent}
-              keyExtractor={(item) => item._id}
-            />
-   </View>
-   </View>
-   </ImageBackground>
+    <View style={{flex: 1}}>
+      <ScrollView>
+        <View style={{marginBottom: 15, marginTop: 15}}>
+          <FlatList
+            style={{padding: 25}}
+            data={data}
+            renderItem={renderComponent}
+            keyExtractor={(item) => item._id}
+          />
+          <FlatList
+            style={{padding: 25}}
+            data={data}
+            renderItem={renderComponent}
+            keyExtractor={(item) => item._id}
+          />
+        </View>
+      </ScrollView>
+      <View style={styles.floatButton}>
+        <TouchableOpacity
+          onPress={() => {
+            // add icon
+            //navigate to Add Contact screen
+            navigation.navigate('CreateBatch');
+          }}
+          // style={styles.floatButton}
+        >
+          <Entypo name="plus" size={30} color="#fff" />
+        </TouchableOpacity>
+      </View>
+    </View>
   );
 };
 
@@ -96,7 +114,7 @@ const styles = StyleSheet.create({
   },
   btn: {
     alignItems: 'center',
-    alignSelf:'center',
+    alignSelf: 'center',
     justifyContent: 'center',
     padding: 10,
     borderRadius: 50,
@@ -106,6 +124,21 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     resizeMode: 'cover',
+  },
+  floatButton: {
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0,0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 70,
+    height: 70,
+    position: 'absolute',
+    bottom: 10,
+    right: 10,
+    // zIndex: 2,
+    opacity: 0.9,
+    backgroundColor: '#B83227',
+    borderRadius: 100,
   },
 });
 

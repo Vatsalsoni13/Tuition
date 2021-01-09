@@ -1,22 +1,9 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Dimensions,
-  StyleSheet,
-  StatusBar,
-  Image,
-} from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import * as Animatable from 'react-native-animatable';
-import LinearGradient from 'react-native-linear-gradient';
-import Calendar from '../screens/Calendar';
-import Assignments from '../screens/Assignments';
-import Categories from '../screens/Categories';
-import Batches from '../screens/Batches';
-import ActionButton from 'react-native-action-button';
+import Calendar from '../screens/Tutor/Calendar';
+import Batches from '../screens/Tutor/Batches';
 
 const TutorPanel = ({navigation}) => {
   const Tab = createMaterialBottomTabNavigator();
@@ -41,7 +28,7 @@ const TutorPanel = ({navigation}) => {
           ),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Assignments"
         component={Assignments}
         options={{
@@ -55,7 +42,7 @@ const TutorPanel = ({navigation}) => {
             />
           ),
         }}
-      />
+      /> */}
       <Tab.Screen
         name="Batches"
         component={Batches}
@@ -68,17 +55,6 @@ const TutorPanel = ({navigation}) => {
               color={color}
               size={26}
             />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Categories"
-        component={Categories}
-        options={{
-          tabBarLabel: 'Categories',
-          tabBarColor: '#d7acd4',
-          tabBarIcon: ({color}) => (
-            <MaterialCommunityIcons name="plus" color={color} size={26} />
           ),
         }}
       />
