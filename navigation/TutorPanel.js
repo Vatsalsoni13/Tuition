@@ -10,24 +10,9 @@ const TutorPanel = ({navigation}) => {
 
   return (
     <Tab.Navigator
-      initialRouteName="Calendar"
+      initialRouteName="Batches"
       activeColor="white"
       style={{backgroundColor: 'tomato'}}>
-      <Tab.Screen
-        name="Calendar"
-        component={Calendar}
-        options={{
-          tabBarLabel: 'Calendar',
-          tabBarColor: '#6c567b',
-          tabBarIcon: ({color}) => (
-            <MaterialCommunityIcons
-              name="calendar-month-outline"
-              color={color}
-              size={26}
-            />
-          ),
-        }}
-      />
       {/* <Tab.Screen
         name="Assignments"
         component={Assignments}
@@ -36,13 +21,13 @@ const TutorPanel = ({navigation}) => {
           tabBarColor: '#70416d',
           tabBarIcon: ({color}) => (
             <MaterialCommunityIcons
-              name="book-open-variant"
+            name="book-open-variant"
               color={color}
               size={26}
             />
-          ),
-        }}
-      /> */}
+            ),
+          }}
+        /> */}
       <Tab.Screen
         name="Batches"
         component={Batches}
@@ -52,6 +37,21 @@ const TutorPanel = ({navigation}) => {
           tabBarIcon: ({color}) => (
             <MaterialCommunityIcons
               name="shield-star"
+              color={color}
+              size={26}
+            />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Calendar"
+        component={Calendar}
+        options={{
+          tabBarLabel: 'Calendar',
+          tabBarColor: '#6c567b',
+          tabBarIcon: ({color}) => (
+            <MaterialCommunityIcons
+              name="calendar-month-outline"
               color={color}
               size={26}
             />

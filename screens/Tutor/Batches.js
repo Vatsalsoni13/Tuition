@@ -26,17 +26,16 @@ import {getCreatedBatches} from '../../utils/apiCalls';
 
 const Batches = ({navigation}) => {
   const [data, setData] = useState([]);
-  const [val, setVal] = useState(false);
+  // const [val, setVal] = useState(false);
   const makeCall = async () => {
     setData(await getCreatedBatches());
   };
   useEffect(() => {
-    if (val === false) {
-      makeCall();
-    }
-    console.log(data, 'HEY THERE');
-    setVal(true);
-  }, [data]);
+    makeCall();
+    // console.log(data, 'HEY THERE');
+    // setVal(true);
+  }, []);
+
   const renderComponent = ({item}) => (
     <View style={{marginBottom: 20, padding: 10}}>
       <Card style={{borderRadius: 20, borderWidth: 1, borderColor: 'black'}}>
@@ -57,7 +56,9 @@ const Batches = ({navigation}) => {
           <View style={{padding: 20, flex: 1}}>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate('BatchPanel');
+                navigation.navigate('BatchPanel', {
+                  batchId: item._id,
+                });
               }}
               activeOpacity={0.5}>
               <LinearGradient
@@ -76,12 +77,6 @@ const Batches = ({navigation}) => {
     <View style={{flex: 1}}>
       <ScrollView>
         <View style={{marginBottom: 15, marginTop: 15}}>
-          <FlatList
-            style={{padding: 25}}
-            data={data}
-            renderItem={renderComponent}
-            keyExtractor={(item) => item._id}
-          />
           <FlatList
             style={{padding: 25}}
             data={data}
