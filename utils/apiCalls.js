@@ -154,6 +154,25 @@ export const scheduleAssignment = async (assignment) => {
   }
 };
 
+export const getAssignment = async (batchId) => {
+  try {
+    let assignments = await fetch(
+      `${url}/tutor/assignments?batchId=${batchId}`,
+      {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+    let allAssignments = await assignments.json();
+    // console.log(allAssignments);
+    return allAssignments;
+  } catch (error) {
+    console.log(error);
+  }
+};
 //Student APIs
 export const getSearchResult = async (std, subject) => {
   console.log(std, subject, 'IN HERE');
@@ -233,7 +252,9 @@ export const getAllAssignments = async () => {
         },
       },
     );
-    console.log(allAssignments);
+    let assign = await allAssignments.json();
+    console.log(assign);
+    return assign;
   } catch (error) {
     console.log(error);
   }
