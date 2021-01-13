@@ -138,6 +138,22 @@ export const getCreatedBatches = async () => {
   }
 };
 
+export const scheduleAssignment = async (assignment) => {
+  try {
+    let createdAssignment = await fetch(`${url}/tutor/schedule`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(assignment),
+    });
+    console.log(createdAssignment);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 //Student APIs
 export const getSearchResult = async (std, subject) => {
   console.log(std, subject, 'IN HERE');
@@ -198,5 +214,27 @@ export const getEnrolledBatches = async () => {
     return batches;
   } catch (error) {
     console.log(error, 'GET ENROLLED BATCHES ERROR');
+  }
+};
+
+export const getAllAssignments = async () => {
+  let studentId = await AsyncStorage.getItem('mongoId').then((value) => {
+    return value;
+  });
+  console.log(studentId);
+  try {
+    let allAssignments = await fetch(
+      `${url}/student/assignments?studentId=${studentId}`,
+      {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+    console.log(allAssignments);
+  } catch (error) {
+    console.log(error);
   }
 };

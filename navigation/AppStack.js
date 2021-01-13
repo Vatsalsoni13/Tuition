@@ -12,6 +12,7 @@ import {getUser} from '../utils/apiCalls';
 import {useContext} from 'react';
 import {AuthContext} from './AuthProvider';
 import BatchPanel from './BatchPanel';
+import CreateAssignment from '../screens/Tutor/CreateAssignment';
 
 const Stack = createStackNavigator();
 
@@ -80,6 +81,13 @@ const AppStack = () => {
       <Stack.Screen
         name="CreateBatch"
         component={CreateBatch}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="CreateAssignment"
+        component={CreateAssignment}
         options={{
           headerShown: false,
         }}

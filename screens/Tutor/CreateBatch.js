@@ -17,6 +17,7 @@ import DatePicker from 'react-native-date-picker';
 import LinearGradient from 'react-native-linear-gradient';
 import {ScrollView} from 'react-native-gesture-handler';
 import {createBatch} from '../../utils/apiCalls';
+import {useEffect} from 'react';
 
 const TodaysDate = () => {
   var today = new Date();
@@ -47,7 +48,7 @@ const CreateBatch = ({navigation}) => {
     batch.size = size;
     batch.subject = subject;
     await createBatch(batch).then(() => {
-      navigation.goBack();
+      navigation.navigate('TutorPanel');
     });
   };
 
@@ -100,7 +101,7 @@ const CreateBatch = ({navigation}) => {
             textColor="#32a852"
             fadeToColor="rgba(100, 100, 100, 1)"
             date={startDate}
-            mode="date"
+            mode="datetime"
             placeholder="select date"
             format="YYYY-MM-DD"
             // minDate={TodaysDate()}

@@ -1,27 +1,18 @@
-import {NavigationContainer} from '@react-navigation/native';
-
 import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  Button,
-  StatusBar,
-} from 'react-native';
+import {SafeAreaView, StyleSheet, ScrollView, View, Text} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+import {useEffect} from 'react';
 
 const Stack = createStackNavigator();
 const Assignments = () => {
-  return <View></View>;
+  useEffect(() => {
+    getAllAssignments();
+  });
+  return (
+    <View>
+      <Text>Assignment</Text>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({});
