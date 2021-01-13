@@ -54,7 +54,7 @@ const Routes = () => {
 
   return (
     <NavigationContainer>
-      {user ? <AppStack /> : <AuthStack />}
+      {verify ? <AppStack /> : <AuthStack />}
     </NavigationContainer>
   );
 };
