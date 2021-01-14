@@ -180,7 +180,7 @@ const Assignments = ({navigation}) => {
         <TouchableOpacity
           // key={index}
           onPress={() => {
-            preview(item);
+            navigation.navigate('AssignmentScreenTutor',{assignment:item,batchId:batchId});
           }}>
           <Text
             style={{fontSize: 15, padding: 10}}

@@ -9,36 +9,17 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import FileViewer from 'react-native-file-viewer';
-import RNFS from 'react-native-fs';
+
 
 import {createStackNavigator} from '@react-navigation/stack';
 import {useEffect} from 'react';
 import {getAllAssignments} from '../../utils/apiCalls';
 import Entypo from 'react-native-vector-icons/Entypo';
 
-const Stack = createStackNavigator();
-const Assignments = () => {
+const Assignments = ({navigation}) => {
   const [filesArr, setFilesArr] = useState([]);
 
-  const preview = async (item) => {
-    const localFile = `${RNFS.DocumentDirectoryPath}/${item.name}`;
-    const options = {
-      fromUrl: item.path,
-      toFile: localFile,
-    };
-
-    RNFS.downloadFile(options)
-      .promise.then(() => FileViewer.open(localFile))
-      .then(() => {
-        // success
-        console.log('Success');
-      })
-      .catch((error) => {
-        // error
-        console.log(error);
-      });
-  };
+  
   useEffect(() => {
     setFilesArr([]);
     getAllAssignments().then((data) => {
@@ -69,7 +50,7 @@ const Assignments = () => {
         <TouchableOpacity
           // key={index}
           onPress={() => {
-            preview(item);
+            navigation.navigate('AssignmentScreen',{assignment:item})
           }}>
           <Text
             style={{fontSize: 15, padding: 10}}
@@ -92,33 +73,6 @@ const Assignments = () => {
           keyExtractor={(item) => item.assignId.toString()}
         />
       </View>
-      <View style={styles.floatButton}>
-        <TouchableOpacity
-          onPress={() => {
-            navigation.navigate('CreateAssignment', {
-              batchId: batchId,
-            });
-          }}>
-          <Entypo name="upload" size={30} color="#fff" />
-        </TouchableOpacity>
-      </View>
-
-      {/* <Button
-      title="Upload"
-      onPress={() => {
-        chooseFile();
-      }}>
-      <Text>Calendar</Text>
-    </Button>
-    {filesArr.map((item, index) => (
-      <TouchableOpacity
-        key={index}
-        onPress={() => {
-          preview(item);
-        }}>
-        <Text>{item.fileName}</Text>
-      </TouchableOpacity>
-    ))} */}
     </View>
   );
 };

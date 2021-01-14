@@ -1,26 +1,41 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Platform,
-  TouchableOpacity,
-  Alert,
-  FlatList,
-  Image,
-} from 'react-native';
+import React, {useContext} from 'react';
+import {useState} from 'react';
+import {View, Text, StyleSheet, TextInput, Button, Alert,TouchableOpacity} from 'react-native';
+import {NetworkContext} from '../../navigation/BatchPanel';
+import DatePicker from 'react-native-date-picker';
 import DocumentPicker from 'react-native-document-picker';
 import FileViewer from 'react-native-file-viewer';
+import RNFS from 'react-native-fs';
 import RNFetchBlob from 'rn-fetch-blob';
 import storage from '@react-native-firebase/storage';
 import database from '@react-native-firebase/database';
-import {NetworkContext} from '../../navigation/BatchPanel';
-import Entypo from 'react-native-vector-icons/Entypo';
-import RNFS from 'react-native-fs';
+import {sendResponse} from '../../utils/apiCalls';
+import AsyncStorage from '@react-native-community/async-storage';
 
-const Material = ({route}) => {
-  const batchId = useContext(NetworkContext);
-  const [filesArr, setFilesArr] = useState([]);
+const AssignmentScreen = ({navigation, route}) => {
+  const {assignment} = route.params;
+  const [name, setName] = useState('');
+  const [path, setPath] = useState('');
+ const  onSubmit = async () => {
+    let userId = await AsyncStorage.getItem('mongoId').then((value) => {
+        return value;
+      });
+    let date=new Date();
+    let b = date.toString();
+    let submitDateTime = b.substring(0, 21);
+    console.log(submitDateTime);
+    let response = {};
+    response.name = name;
+    response.time = submitDateTime;
+    response.date = submitDateTime;
+    response.path = path
+    response.assignId = assignment.assignId;
+    response.studentId = userId;
+    console.log('ASSIGN', response);
+    await sendResponse(response).then(() => {
+      console.log("SEND RESPONSE SUCCESS");
+    });
+  };
   const chooseFile = async () => {
     // Pick a single file
     try {
@@ -75,8 +90,11 @@ const Material = ({route}) => {
   };
 
   const uploadToFirebaseStorage = async (result, res) => {
+    let userId = await AsyncStorage.getItem('mongoId').then((value) => {
+        return value;
+      });
     const uploadTask = storage()
-      .ref(`Material/${batchId}/${res.name}`)
+      .ref(`Responses/${assignment.assignId}/${userId}`)
       .putString(result, 'base64', {contentType: res.type});
     uploadTask.on(
       'state_changed',
@@ -102,6 +120,7 @@ const Material = ({route}) => {
         // Handle successful uploads on complete
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
         uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+          setPath(downloadURL);
           saveToRealTimeDB(downloadURL, res);
           console.log('File available at', downloadURL);
         });
@@ -109,8 +128,11 @@ const Material = ({route}) => {
     );
   };
   const saveToRealTimeDB = async (downloadURL, res) => {
-    const uniqueKey = database().ref().push().key;
-    database().ref(`material/${batchId}/${uniqueKey}`).update({
+    let userId = await AsyncStorage.getItem('mongoId').then((value) => {
+        return value;
+      });
+    
+    database().ref(`Responses/${assignment.assignId}/${userId}`).update({
       fileName: res.name,
       fileType: res.type,
       fileURL: downloadURL,
@@ -118,11 +140,10 @@ const Material = ({route}) => {
     });
   };
 
-  const preview = async (item) => {
-    
-    const localFile = `${RNFS.DocumentDirectoryPath}/${item.fileName}`;
+  const preview = async () => {
+    const localFile = `${RNFS.DocumentDirectoryPath}/${assignment.name}`;
     const options = {
-      fromUrl: item.fileURL,
+      fromUrl: assignment.path,
       toFile: localFile,
     };
 
@@ -138,114 +159,60 @@ const Material = ({route}) => {
       });
   };
 
-  useEffect(() => {
-    //
-    setFilesArr([]);
-    //
-    // console.log(batchId);
-    const onChildAdded = database()
-      .ref(`material/${batchId}`)
-      .on('child_added', (snapshot) => {
-        let helperArr = [];
-        helperArr.push(snapshot.val());
-        setFilesArr((files) => [...files, ...helperArr]);
-        console.log(snapshot.val());
-      });
-    return () => database().ref('assignments').off('child_added', onChildAdded);
-  }, []);
-
-  const renderItem = ({item}) => (
-    <View
-      style={{
-        flex: 1,
-        flexDirection: 'row',
-        padding: 10,
-        margin: 10,
-        alignItems: 'center',
-        backgroundColor: '#fffef0',
-        borderRadius: 15,
-        // flexWrap: 'wrap',
-      }}>
-      <View style={{marginRight: 10}}>
-        <Image
-          source={{uri: 'https://picsum.photos/536/354'}}
-          style={{height: 50, width: 50, borderRadius: 25}}
-        />
-      </View>
-      <View>
-        <TouchableOpacity
+  
+  return (
+    <View style={styles.container}>
+      <TouchableOpacity
           // key={index}
           onPress={() => {
-            preview(item);
+            preview();
           }}>
           <Text
             style={{fontSize: 15, padding: 10}}
             numberOfLines={1}
             ellipsizeMode="tail"
             lineBreakMode="tail">
-            {item.fileName}
+            {assignment.name}
           </Text>
         </TouchableOpacity>
-      </View>
-    </View>
-  );
-
-  return (
-    <View style={styles.container}>
-      <View>
-        <FlatList
-          data={filesArr}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.fileName}
+        <View>
+        <Text>Name of File</Text>
+        <TextInput
+          style={styles.input}
+          value={name}
+          onChangeText={(name) => {
+            setName(name);
+          }}
         />
       </View>
-      <View style={styles.floatButton}>
-        <TouchableOpacity
+      <View style={{padding:30}}>
+        <Text>Upload File</Text>
+        <Button
+          title="Upload File"
           onPress={() => {
             chooseFile();
-          }}>
-          <Entypo name="upload" size={30} color="#fff" />
-        </TouchableOpacity>
-      </View>
-
-      {/* <Button
-        title="Upload"
+          }}
+        />
+      <Button
+        title="Submit Response"
         onPress={() => {
-          chooseFile();
-        }}>
-        <Text>Calendar</Text>
-      </Button>
-      {filesArr.map((item, index) => (
-        <TouchableOpacity
-          key={index}
-          onPress={() => {
-            preview(item);
-          }}>
-          <Text>{item.fileName}</Text>
-        </TouchableOpacity>
-      ))} */}
+         onSubmit();
+        }}
+      />
+       </View>
     </View>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: 10,
+    margin:40
   },
-  floatButton: {
+  input: {
     borderWidth: 1,
-    borderColor: 'rgba(0,0,0,0.2)',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 70,
-    height: 70,
-    position: 'absolute',
-    bottom: 15,
-    right: 15,
-    // zIndex: 2,
-    opacity: 0.9,
-    backgroundColor: '#B83227',
-    borderRadius: 100,
+    borderColor: '#000',
   },
 });
-
-export default Material;
+export default AssignmentScreen;

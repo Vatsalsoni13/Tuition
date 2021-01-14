@@ -259,3 +259,42 @@ export const getAllAssignments = async () => {
     console.log(error);
   }
 };
+
+export  const sendResponse=async (response) =>{
+
+  try {
+    let submittedResponse = await fetch(`${url}/student/response`, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(response),
+    });
+    console.log(submittedResponse);
+  } catch (error) {
+    console.log(error);
+  }
+
+}
+
+export const getAssignmentResponses = async (batchId,assignId) =>{
+  try {
+    let resp = await fetch(
+      `${url}/tutor/responses?assignId=5fff0cd025c7d00004a5e285&batchId=5fff093cdc894b0004261b60`,
+      {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+    let responses = await resp.json();
+    console.log(responses);
+    return responses;
+  } catch (error) {
+    console.log(error);
+  }
+
+}

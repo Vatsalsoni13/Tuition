@@ -19,7 +19,6 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-const Stack = createStackNavigator();
 const Calendar = () => {
   return <View></View>;
 };

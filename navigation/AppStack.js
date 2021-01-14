@@ -12,6 +12,9 @@ import {getUser} from '../utils/apiCalls';
 import {useContext} from 'react';
 import {AuthContext} from './AuthProvider';
 import BatchPanel from './BatchPanel';
+import AssignmentScreen from '../screens/Student/AssignmentScreen';
+import AssignmentScreenTutor from '../screens/Tutor/AssignmentScreenTutor';
+
 import CreateAssignment from '../screens/Tutor/CreateAssignment';
 
 const Stack = createStackNavigator();
@@ -88,6 +91,20 @@ const AppStack = () => {
       <Stack.Screen
         name="CreateAssignment"
         component={CreateAssignment}
+        options={{
+          headerShown: false,
+        }}
+      />
+       <Stack.Screen
+        name="AssignmentScreen"
+        component={AssignmentScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="AssignmentScreenTutor"
+        component={AssignmentScreenTutor}
         options={{
           headerShown: false,
         }}
