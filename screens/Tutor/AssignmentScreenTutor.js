@@ -14,7 +14,7 @@ import RNFS from 'react-native-fs';
 
 import {getAssignmentResponses} from '../../utils/apiCalls';
 
-const AssignmentScreen = ({navigation, route}) => {
+const AssignmentScreenTutor = ({navigation, route}) => {
   const {assignment, batchId} = route.params;
   const [submitted, setSubmitted] = useState([]);
   const [notSubmitted, setNotSubmitted] = useState([]);
@@ -110,4 +110,4 @@ const styles = StyleSheet.create({
     borderColor: '#000',
   },
 });
-export default AssignmentScreen;
+export default AssignmentScreenTutor;

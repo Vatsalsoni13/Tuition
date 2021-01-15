@@ -57,9 +57,22 @@ const Chat = () => {
                 alignSelf:
                   item.userName == user.email ? 'flex-end' : 'flex-start',
                 backgroundColor:
-                  item.userName != user.email ? '#e8fa00' : '#2afc00',
+                  item.userName != user.email ? '#fcffc2' : '#ff8fe5',
                 padding: 10,
-                borderRadius: 40,
+                marginVertical: 5,
+                borderTopLeftRadius: 10,
+                borderTopRightRadius: 10,
+                borderBottomLeftRadius: item.userName == user.email ? 10 : 0,
+                borderBottomRightRadius: item.userName != user.email ? 10 : 0,
+                // borderBottomRightRadius:,
+                borderColor: '#000',
+                // borderWidth: 0.1,
+                borderLeftWidth: 0.7,
+                borderTopWidth: 0.5,
+                borderRightWidth: 0.7,
+                borderBottomWidth: 0.5,
+                maxWidth: Dimensions.get('screen').width / 2,
+                minWidth: Dimensions.get('screen').width / 2,
               }}
               // key={index}
             >
@@ -93,9 +106,12 @@ const Chat = () => {
           }}
         />
         <AntDesign
+          onPress={() => {
+            sendText();
+          }}
           name="arrowright"
           size={30}
-          style={{backgroundColor: '#56ff08', borderRadius: 50, padding: 10}}
+          style={{backgroundColor: '#00c241', borderRadius: 50, padding: 10}}
         />
       </View>
     </KeyboardAvoidingView>

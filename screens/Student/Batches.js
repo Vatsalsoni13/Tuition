@@ -41,7 +41,12 @@ const Batches = ({navigation}) => {
   }, [data]);
 
   const renderComponent = ({item, index}) => (
-    <TouchableOpacity>
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate('StudentBatchPanel', {
+          batchId: item._id,
+        });
+      }}>
       <Batch
         description={item.info.description}
         subject={item.info.subject}

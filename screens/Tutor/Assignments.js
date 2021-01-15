@@ -18,6 +18,8 @@ import {NetworkContext} from '../../navigation/BatchPanel';
 import Entypo from 'react-native-vector-icons/Entypo';
 import RNFS from 'react-native-fs';
 import {getAssignment} from '../../utils/apiCalls';
+import Assignment from '../../components/Assignment';
+import AssignmentScreenTutor from '../Tutor/AssignmentScreenTutor';
 
 const Assignments = ({navigation}) => {
   const batchId = useContext(NetworkContext);
@@ -158,52 +160,18 @@ const Assignments = ({navigation}) => {
     // return () => database().ref('assignments').off('child_added', onChildAdded);
   }, []);
 
-  const renderItem = ({item}) => (
-    <View
-      style={{
-        flex: 1,
-        flexDirection: 'row',
-        padding: 10,
-        margin: 10,
-        alignItems: 'center',
-        backgroundColor: '#fffef0',
-        borderRadius: 15,
-        // flexWrap: 'wrap',
-      }}>
-      <View style={{marginRight: 10}}>
-        <Image
-          source={{uri: 'https://picsum.photos/536/354'}}
-          style={{height: 50, width: 50, borderRadius: 25}}
-        />
-      </View>
-      <View>
-        <TouchableOpacity
-          // key={index}
-          onPress={() => {
-            navigation.navigate('AssignmentScreenTutor', {
-              assignment: item,
-              batchId: batchId,
-            });
-          }}>
-          <Text
-            style={{fontSize: 20, padding: 10}}
-            numberOfLines={1}
-            ellipsizeMode="tail"
-            lineBreakMode="tail">
-            {item.name}
-          </Text>
-          <Text style={{paddingLeft: 10}}>{item.istDateTime}</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
-  );
-
   return (
     <View style={styles.container}>
       <View>
         <FlatList
           data={filesArr}
-          renderItem={renderItem}
+          renderItem={({item}) => (
+            <Assignment
+              item={item}
+              navigation={navigation}
+              screen={'AssignmentScreenTutor'}
+            />
+          )}
           keyExtractor={(item) => item.assignId.toString()}
         />
       </View>
@@ -217,23 +185,6 @@ const Assignments = ({navigation}) => {
           <Entypo name="upload" size={30} color="#fff" />
         </TouchableOpacity>
       </View>
-
-      {/* <Button
-        title="Upload"
-        onPress={() => {
-          chooseFile();
-        }}>
-        <Text>Calendar</Text>
-      </Button>
-      {filesArr.map((item, index) => (
-        <TouchableOpacity
-          key={index}
-          onPress={() => {
-            preview(item);
-          }}>
-          <Text>{item.fileName}</Text>
-        </TouchableOpacity>
-      ))} */}
     </View>
   );
 };

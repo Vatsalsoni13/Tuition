@@ -1,6 +1,14 @@
 import React, {useContext} from 'react';
 import {useState} from 'react';
-import {View, Text, StyleSheet, TextInput, Button, Alert,TouchableOpacity} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  Button,
+  Alert,
+  TouchableOpacity,
+} from 'react-native';
 import {NetworkContext} from '../../navigation/BatchPanel';
 import DatePicker from 'react-native-date-picker';
 import DocumentPicker from 'react-native-document-picker';
@@ -16,11 +24,11 @@ const AssignmentScreen = ({navigation, route}) => {
   const {assignment} = route.params;
   const [name, setName] = useState('');
   const [path, setPath] = useState('');
- const  onSubmit = async () => {
+  const onSubmit = async () => {
     let userId = await AsyncStorage.getItem('mongoId').then((value) => {
-        return value;
-      });
-    let date=new Date();
+      return value;
+    });
+    let date = new Date();
     let b = date.toString();
     let submitDateTime = b.substring(0, 21);
     console.log(submitDateTime);
@@ -28,12 +36,12 @@ const AssignmentScreen = ({navigation, route}) => {
     response.name = name;
     response.time = submitDateTime;
     response.date = submitDateTime;
-    response.path = path
+    response.path = path;
     response.assignId = assignment.assignId;
     response.studentId = userId;
     console.log('ASSIGN', response);
     await sendResponse(response).then(() => {
-      console.log("SEND RESPONSE SUCCESS");
+      console.log('SEND RESPONSE SUCCESS');
     });
   };
   const chooseFile = async () => {
@@ -91,8 +99,8 @@ const AssignmentScreen = ({navigation, route}) => {
 
   const uploadToFirebaseStorage = async (result, res) => {
     let userId = await AsyncStorage.getItem('mongoId').then((value) => {
-        return value;
-      });
+      return value;
+    });
     const uploadTask = storage()
       .ref(`Responses/${assignment.assignId}/${userId}`)
       .putString(result, 'base64', {contentType: res.type});
@@ -129,9 +137,9 @@ const AssignmentScreen = ({navigation, route}) => {
   };
   const saveToRealTimeDB = async (downloadURL, res) => {
     let userId = await AsyncStorage.getItem('mongoId').then((value) => {
-        return value;
-      });
-    
+      return value;
+    });
+
     database().ref(`Responses/${assignment.assignId}/${userId}`).update({
       fileName: res.name,
       fileType: res.type,
@@ -159,24 +167,22 @@ const AssignmentScreen = ({navigation, route}) => {
       });
   };
 
-  
   return (
     <View style={styles.container}>
-   
       <TouchableOpacity
-          // key={index}
-          onPress={() => {
-            preview();
-          }}>
-          <Text
-            style={{fontSize: 15, padding: 10}}
-            numberOfLines={1}
-            ellipsizeMode="tail"
-            lineBreakMode="tail">
-            {assignment.name}
-          </Text>
-        </TouchableOpacity>
-        <View>
+        // key={index}
+        onPress={() => {
+          preview();
+        }}>
+        <Text
+          style={{fontSize: 15, padding: 10}}
+          numberOfLines={1}
+          ellipsizeMode="tail"
+          lineBreakMode="tail">
+          {assignment.name}
+        </Text>
+      </TouchableOpacity>
+      <View>
         <Text>Name of File</Text>
         <TextInput
           style={styles.input}
@@ -186,7 +192,7 @@ const AssignmentScreen = ({navigation, route}) => {
           }}
         />
       </View>
-      <View style={{padding:30}}>
+      <View style={{padding: 30}}>
         <Text>Upload File</Text>
         <Button
           title="Upload File"
@@ -194,13 +200,13 @@ const AssignmentScreen = ({navigation, route}) => {
             chooseFile();
           }}
         />
-      <Button
-        title="Submit Response"
-        onPress={() => {
-         onSubmit();
-        }}
-      />
-       </View>
+        <Button
+          title="Submit Response"
+          onPress={() => {
+            onSubmit();
+          }}
+        />
+      </View>
     </View>
   );
 };
@@ -209,7 +215,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    margin:40
+    margin: 40,
   },
   input: {
     borderWidth: 1,

@@ -75,16 +75,14 @@ const Batches = ({navigation}) => {
 
   return (
     <View style={{flex: 1}}>
-      <ScrollView>
-        <View style={{marginBottom: 15, marginTop: 15}}>
-          <FlatList
-            style={{padding: 25}}
-            data={data}
-            renderItem={renderComponent}
-            keyExtractor={(item) => item._id}
-          />
-        </View>
-      </ScrollView>
+      <View style={{marginBottom: 15, marginTop: 15}}>
+        <FlatList
+          style={{padding: 25}}
+          data={data}
+          renderItem={renderComponent}
+          keyExtractor={(item) => item._id}
+        />
+      </View>
       <View style={styles.floatButton}>
         <TouchableOpacity
           onPress={() => {
