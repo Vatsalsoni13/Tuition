@@ -10,7 +10,7 @@ import {
   StatusBar,
   FlatList,
   ImageBackground,
-  Image
+  Image,
 } from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
@@ -36,22 +36,31 @@ const Batches = ({navigation}) => {
     if (val === false) {
       makeCall();
     }
-    console.log(data, 'HEY THERE');
+    // console.log(data, 'HEY THERE');
     setVal(true);
   }, [data]);
-  
-  
-  const renderComponent = ({item,index}) =>(
-    <TouchableOpacity>
-      <Batch description={item.info.description} subject={item.info.subject} title={item.info.title}/>
+
+  const renderComponent = ({item, index}) => (
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate('StudentBatchPanel', {
+          batchId: item._id,
+        });
+      }}>
+      <Batch
+        description={item.info.description}
+        subject={item.info.subject}
+        title={item.info.title}
+      />
     </TouchableOpacity>
-  )
+  );
 
   return (
     <ImageBackground
       source={require('../../assets/bright-squares.png')}
       style={styles.image}>
       <View style={{flex: 1}}>
+        {console.log(data)}
         <View style={{marginBottom: 15, marginTop: 15}}>
           <FlatList
             style={{padding: 25}}
@@ -82,11 +91,9 @@ const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-    backgroundColor:'white',
+    backgroundColor: 'white',
     resizeMode: 'cover',
-  
   },
- 
 });
 
 export default Batches;

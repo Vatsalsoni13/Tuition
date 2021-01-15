@@ -12,28 +12,13 @@ const TutorPanel = ({navigation}) => {
     <Tab.Navigator
       initialRouteName="Batches"
       activeColor="white"
-      style={{backgroundColor: 'tomato'}}>
-      {/* <Tab.Screen
-        name="Assignments"
-        component={Assignments}
-        options={{
-          tabBarLabel: 'Assignments',
-          tabBarColor: '#70416d',
-          tabBarIcon: ({color}) => (
-            <MaterialCommunityIcons
-            name="book-open-variant"
-              color={color}
-              size={26}
-            />
-            ),
-          }}
-        /> */}
+      barStyle={{backgroundColor: '#A15D98'}}>
       <Tab.Screen
         name="Batches"
         component={Batches}
         options={{
           tabBarLabel: 'Batches',
-          tabBarColor: '#b689b0',
+          tabBarColor: '#A15D98',
           tabBarIcon: ({color}) => (
             <MaterialCommunityIcons
               name="shield-star"
@@ -48,7 +33,7 @@ const TutorPanel = ({navigation}) => {
         component={Calendar}
         options={{
           tabBarLabel: 'Calendar',
-          tabBarColor: '#6c567b',
+          tabBarColor: '#A15D98',
           tabBarIcon: ({color}) => (
             <MaterialCommunityIcons
               name="calendar-month-outline"

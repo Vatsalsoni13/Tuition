@@ -23,7 +23,7 @@ const Tab = createMaterialBottomTabNavigator();
 const StudentPanel = ({navigation}) => {
   return (
     <Tab.Navigator
-      initialRouteName="Calendar"
+      initialRouteName="Batches"
       activeColor="white"
       style={{backgroundColor: 'tomato'}}>
       <Tab.Screen
