@@ -180,15 +180,19 @@ const Assignments = ({navigation}) => {
         <TouchableOpacity
           // key={index}
           onPress={() => {
-            navigation.navigate('AssignmentScreenTutor',{assignment:item,batchId:batchId});
+            navigation.navigate('AssignmentScreenTutor', {
+              assignment: item,
+              batchId: batchId,
+            });
           }}>
           <Text
-            style={{fontSize: 15, padding: 10}}
+            style={{fontSize: 20, padding: 10}}
             numberOfLines={1}
             ellipsizeMode="tail"
             lineBreakMode="tail">
             {item.name}
           </Text>
+          <Text style={{paddingLeft: 10}}>{item.istDateTime}</Text>
         </TouchableOpacity>
       </View>
     </View>

@@ -34,11 +34,12 @@ const Batches = ({navigation}) => {
     if (val === false) {
       makeCall();
     }
-    console.log(data, 'HEY THERE');
+    // console.log(data, 'HEY THERE');
     setVal(true);
   }, [data]);
   const renderComponent = ({item}) => (
     <View style={{marginBottom: 20, padding: 10}}>
+      {console.log('ITEM', item)}
       <Card style={{borderRadius: 20, borderWidth: 1, borderColor: 'black'}}>
         <CardImage
           source={{
@@ -55,7 +56,13 @@ const Batches = ({navigation}) => {
         <CardContent text={item.info.description} />
         <CardAction separator={true} inColumn={false}>
           <View style={{padding: 20, flex: 1}}>
-            <TouchableOpacity onPress={() => {}} activeOpacity={0.5}>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate('StudentBatchPanel', {
+                  batchId: item._id,
+                });
+              }}
+              activeOpacity={0.5}>
               <LinearGradient
                 colors={['#c31432', '#240b36']}
                 style={styles.btn}>
@@ -76,6 +83,7 @@ const Batches = ({navigation}) => {
       }}
       style={styles.image}>
       <View style={{flex: 1}}>
+        {console.log(data)}
         <View style={{marginBottom: 15, marginTop: 15}}>
           <FlatList
             style={{padding: 25}}

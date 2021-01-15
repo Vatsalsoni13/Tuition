@@ -16,6 +16,7 @@ import AssignmentScreen from '../screens/Student/AssignmentScreen';
 import AssignmentScreenTutor from '../screens/Tutor/AssignmentScreenTutor';
 
 import CreateAssignment from '../screens/Tutor/CreateAssignment';
+import StudentBatchPanel from './StudenBatchPanel';
 
 const Stack = createStackNavigator();
 
@@ -95,7 +96,7 @@ const AppStack = () => {
           headerShown: false,
         }}
       />
-       <Stack.Screen
+      <Stack.Screen
         name="AssignmentScreen"
         component={AssignmentScreen}
         options={{
@@ -126,6 +127,16 @@ const AppStack = () => {
           title: 'Tutor Panel',
           headerStyle: {
             backgroundColor: '#A15D98',
+          },
+        }}
+      />
+      <Stack.Screen
+        name="StudentBatchPanel"
+        component={StudentBatchPanel}
+        options={{
+          title: 'Student Panel',
+          headerStyle: {
+            backgroundColor: '#E6A57E',
           },
         }}
       />

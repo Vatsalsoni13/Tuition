@@ -10,7 +10,6 @@ import {
   Image,
 } from 'react-native';
 
-
 import {createStackNavigator} from '@react-navigation/stack';
 import {useEffect} from 'react';
 import {getAllAssignments} from '../../utils/apiCalls';
@@ -19,11 +18,10 @@ import Entypo from 'react-native-vector-icons/Entypo';
 const Assignments = ({navigation}) => {
   const [filesArr, setFilesArr] = useState([]);
 
-  
   useEffect(() => {
     setFilesArr([]);
     getAllAssignments().then((data) => {
-      console.log('DATA', data);
+      // console.log('DATA', data);
       setFilesArr(data);
     });
   }, []);
@@ -50,15 +48,18 @@ const Assignments = ({navigation}) => {
         <TouchableOpacity
           // key={index}
           onPress={() => {
-            navigation.navigate('AssignmentScreen',{assignment:item})
+            navigation.navigate('AssignmentScreen', {assignment: item});
           }}>
-          <Text
-            style={{fontSize: 15, padding: 10}}
-            numberOfLines={1}
-            ellipsizeMode="tail"
-            lineBreakMode="tail">
-            {item.name}
-          </Text>
+          <View>
+            <Text
+              style={{fontSize: 20, padding: 10}}
+              numberOfLines={1}
+              ellipsizeMode="tail"
+              lineBreakMode="tail">
+              {item.name}
+            </Text>
+            <Text style={{paddingLeft: 10}}>{item.istDateTime}</Text>
+          </View>
         </TouchableOpacity>
       </View>
     </View>
