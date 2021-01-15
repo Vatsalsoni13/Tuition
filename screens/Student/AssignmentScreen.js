@@ -8,7 +8,11 @@ import {
   Button,
   Alert,
   TouchableOpacity,
+  Image,
+  Dimensions
 } from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
+
 import {NetworkContext} from '../../navigation/BatchPanel';
 import DatePicker from 'react-native-date-picker';
 import DocumentPicker from 'react-native-document-picker';
@@ -19,6 +23,7 @@ import storage from '@react-native-firebase/storage';
 import database from '@react-native-firebase/database';
 import {sendResponse} from '../../utils/apiCalls';
 import AsyncStorage from '@react-native-community/async-storage';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const AssignmentScreen = ({navigation, route}) => {
   const {assignment} = route.params;
@@ -169,57 +174,116 @@ const AssignmentScreen = ({navigation, route}) => {
 
   return (
     <View style={styles.container}>
+    <View style={{padding:40,margin:10,flex:1}}>
       <TouchableOpacity
         // key={index}
         onPress={() => {
           preview();
         }}>
+        <View style={{backgroundColor:'#a6a9b6',borderRadius:6,marginTop:50,padding:10,display:'flex',flexDirection:'row'}}>
+        <View style={{flex:1,alignSelf:'flex-start',padding:5}}>
+          <Icon
+            name="folder"
+            size={35}
+          />
+        </View>
+        <View style={{flex:5, padding: 5,alignSelf:'flex-start'}}>
         <Text
-          style={{fontSize: 15, padding: 10}}
+          style={{fontSize: 20}}
           numberOfLines={1}
           ellipsizeMode="tail"
           lineBreakMode="tail">
           {assignment.name}
         </Text>
+        </View>
+        </View>
       </TouchableOpacity>
-      <View>
-        <Text>Name of File</Text>
+      <Image source={require('../../assets/Study-area.png')} style={{alignSelf:'center',marginTop:10,marginBottom:10,width:Dimensions.get('screen').width/1.2,height:Dimensions.get('screen').height/4}}/>
+      </View>
+      <View style={{paddingHorizontal: 60,marginTop:10,borderWidth:1,borderColor:'black',flex:1,borderTopLeftRadius:40,borderTopRightRadius:40,backgroundColor:'#fff3e6'}}>
+      <View style={{marginTop:40,marginBottom:40}}>
+        
         <TextInput
           style={styles.input}
           value={name}
+          placeholder="Enter name of the file"
           onChangeText={(name) => {
             setName(name);
           }}
         />
       </View>
-      <View style={{padding: 30}}>
-        <Text>Upload File</Text>
-        <Button
-          title="Upload File"
-          onPress={() => {
-            chooseFile();
-          }}
-        />
-        <Button
-          title="Submit Response"
-          onPress={() => {
-            onSubmit();
-          }}
-        />
+      <View style={styles.button}>
+            <TouchableOpacity
+              style={styles.signIn}
+              onPress={() => {
+               chooseFile();
+              }}>
+              <LinearGradient
+                colors={['#001433', '#001433']}
+                style={styles.signIn}>
+                <Text
+                  style={[
+                    styles.textSign,
+                    {
+                      color: '#fff',
+                    },
+                  ]}>
+                  Choose File
+                </Text>
+              </LinearGradient>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={() => onSubmit()}
+              style={[
+                styles.signIn,
+                {
+                  borderColor: '#635df8',
+                  borderWidth: 1,
+                  marginTop: 15,
+                  backgroundColor: 'white',
+                },
+              ]}>
+              <Text
+                style={[
+                  styles.textSign,
+                  {
+                    color: 'black',
+                  },
+                ]}>
+                Upload File
+              </Text>
+            </TouchableOpacity>
+      </View>
       </View>
     </View>
+    
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+ container: {
     flex: 1,
-    padding: 10,
-    margin: 40,
+    
+    display:'flex',
+
+     backgroundColor:'#f6d887'
   },
   input: {
     borderWidth: 1,
     borderColor: '#000',
+    borderRadius:10,
+  },
+  signIn: {
+    width: '100%',
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 10,
+  },
+  textSign: {
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
 export default AssignmentScreen;

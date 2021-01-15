@@ -8,9 +8,12 @@ import {
   Alert,
   TouchableOpacity,
   FlatList,
+  Dimensions
 } from 'react-native';
 import FileViewer from 'react-native-file-viewer';
 import RNFS from 'react-native-fs';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 
 import {getAssignmentResponses} from '../../utils/apiCalls';
 
@@ -27,7 +30,7 @@ const AssignmentScreenTutor = ({navigation, route}) => {
     </View>
   );
   const notSubmittedRenderItem = ({item}) => (
-    <View style={{padding: 15, backgroundColor: '#fcffcc', borderRadius: 15}}>
+    <View style={{padding: 15, backgroundColor: '#f1aa9b', borderRadius: 15}}>
       <Text>Name : {item.studentName}</Text>
       <Text>Email : {item.email}</Text>
     </View>
@@ -67,28 +70,42 @@ const AssignmentScreenTutor = ({navigation, route}) => {
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity
+    <View style={{borderWidth:1,borderColor:'black',padding:40,backgroundColor:'#fcf8e8',borderBottomLeftRadius:40,borderBottomRightRadius:40}}>
+       <TouchableOpacity
+        // key={index}
         onPress={() => {
           preview();
         }}>
+        <View style={{backgroundColor:'#a6a9b6',borderRadius:6,marginTop:50,padding:10,display:'flex',flexDirection:'row'}}>
+        <View style={{flex:1,alignSelf:'flex-start',padding:5}}>
+          <Icon
+            name="folder"
+            size={35}
+          />
+        </View>
+        <View style={{flex:5, padding: 5,alignSelf:'flex-start'}}>
         <Text
-          style={{fontSize: 15, padding: 10}}
+          style={{fontSize: 20}}
           numberOfLines={1}
           ellipsizeMode="tail"
           lineBreakMode="tail">
           {assignment.name}
         </Text>
+        </View>
+        </View>
       </TouchableOpacity>
-      <View>
-        <Text style={{fontSize: 20}}>Submitted List:</Text>
+      </View>
+      <View style={{marginTop:40,padding:40}}>
+      <View style={{height:Dimensions.get('screen').height/3}}>
+        <Text style={{fontSize: 20,fontWeight:'bold',marginVertical:8}}>Submitted List:</Text>
         <FlatList
           data={submitted}
           renderItem={submittedRenderItem}
           keyExtractor={(item) => item.email}
         />
       </View>
-      <View style={{marginTop: 10}}>
-        <Text style={{fontSize: 20}}>Not Submitted List:</Text>
+      <View style={{height:Dimensions.get('screen').height/3}}>
+        <Text style={{fontSize: 20,fontWeight:'bold',marginVertical:8}}>Not Submitted List:</Text>
         <FlatList
           data={notSubmitted}
           renderItem={notSubmittedRenderItem}
@@ -96,14 +113,17 @@ const AssignmentScreenTutor = ({navigation, route}) => {
         />
       </View>
     </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
-    margin: 20,
+ 
+    display:'flex',
+
+     backgroundColor:'#f6d887'
   },
   input: {
     borderWidth: 1,

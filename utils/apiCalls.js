@@ -278,7 +278,7 @@ export const sendResponse = async (response) => {
 
 export const getAssignmentResponses = async (batchId, assignId) => {
   try {
-    let resp = await fetch(`${url}/tutor/responses?assignId=${assignId}`, {
+    let resp = await fetch(`${url}/tutor/responses?assignId=5fff0cd025c7d00004a5e285&batchId=5fff093cdc894b0004261b60`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',

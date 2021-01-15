@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
-    backgroundColor: '#e8e9a1',
+    backgroundColor: '#fff3e6',
     resizeMode: 'cover',
   },
 });

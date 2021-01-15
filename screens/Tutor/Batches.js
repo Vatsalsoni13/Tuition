@@ -14,6 +14,8 @@ import {
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
 import Entypo from 'react-native-vector-icons/Entypo';
+import Batch from '../../components/Batch';
+
 import {
   Card,
   CardTitle,
@@ -37,40 +39,18 @@ const Batches = ({navigation}) => {
   }, []);
 
   const renderComponent = ({item}) => (
-    <View style={{marginBottom: 20, padding: 10}}>
-      <Card style={{borderRadius: 20, borderWidth: 1, borderColor: 'black'}}>
-        <CardImage
-          source={{
-            uri: 'https://i.imgur.com/SOQFYw0.png',
-          }}
-          title={item.info.std + '  ' + item.info.subject}
-        />
-        <CardTitle
-          title={item.info.title}
-          subtitle={
-            'Date of begin :' + new Date(item.info.date_of_begin).toDateString()
-          }
-        />
-        <CardContent text={item.info.description} />
-        <CardAction separator={true} inColumn={false}>
-          <View style={{padding: 20, flex: 1}}>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate('BatchPanel', {
-                  batchId: item._id,
-                });
-              }}
-              activeOpacity={0.5}>
-              <LinearGradient
-                colors={['#c31432', '#240b36']}
-                style={styles.btn}>
-                <Text style={{color: '#fff', fontSize: 18}}>Explore</Text>
-              </LinearGradient>
-            </TouchableOpacity>
-          </View>
-        </CardAction>
-      </Card>
-    </View>
+    <TouchableOpacity
+    onPress={() => {
+      navigation.navigate('BatchPanel', {
+        batchId: item._id,
+      });
+    }}>
+    <Batch
+      description={item.info.description}
+      subject={item.info.subject}
+      title={item.info.title}
+    />
+  </TouchableOpacity>
   );
 
   return (

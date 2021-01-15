@@ -6,6 +6,8 @@ import {
   TextInput,
   Dimensions,
   KeyboardAvoidingView,
+  ImageBackground
+
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import database from '@react-native-firebase/database';
@@ -48,16 +50,19 @@ const Chat = () => {
     return () => database().ref('assignments').off('child_added', onChildAdded);
   }, []);
   return (
+    <ImageBackground
+    source={require('../../assets/email-pattern.png')}
+    style={styles.image}>
     <KeyboardAvoidingView behavior="padding" enabled style={styles.container}>
       {filesArr &&
         filesArr.map((item, index) => (
-          <View key={index}>
+          <View key={index} >
             <Text
               style={{
                 alignSelf:
                   item.userName == user.email ? 'flex-end' : 'flex-start',
                 backgroundColor:
-                  item.userName != user.email ? '#fcffc2' : '#ff8fe5',
+                  item.userName != user.email ? '#faf2f2' : '#ccafaf',
                 padding: 10,
                 marginVertical: 5,
                 borderTopLeftRadius: 10,
@@ -111,17 +116,23 @@ const Chat = () => {
           }}
           name="arrowright"
           size={30}
-          style={{backgroundColor: '#00c241', borderRadius: 50, padding: 10}}
+          style={{backgroundColor: '#96bb7c', borderRadius: 50, padding: 10,borderWidth:2,borderColor:'black'}}
         />
       </View>
     </KeyboardAvoidingView>
+    </ImageBackground>
   );
 };
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: '#fff',
+    
+  },
+  image: {
+    flex: 1,
+    backgroundColor: 'white',
+  
   },
 });
 
