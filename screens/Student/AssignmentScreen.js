@@ -162,6 +162,7 @@ const AssignmentScreen = ({navigation, route}) => {
   
   return (
     <View style={styles.container}>
+   
       <TouchableOpacity
           // key={index}
           onPress={() => {

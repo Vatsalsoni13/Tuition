@@ -27,6 +27,7 @@ const Chat = () => {
     });
   };
   useEffect(() => {
+    setFilesArr([]); 
     console.log('USER', user);
     const onChildAdded = database()
       .ref(`Chats/${batchId}`)
