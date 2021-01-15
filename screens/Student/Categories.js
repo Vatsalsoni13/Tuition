@@ -13,14 +13,7 @@ import {Picker} from '@react-native-community/picker';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
 import {getEnrolled, getSearchResult} from '../../utils/apiCalls';
-import {
-  Card,
-  CardTitle,
-  CardContent,
-  CardAction,
-  CardButton,
-  CardImage,
-} from 'react-native-material-cards';
+import Batch from '../../components/Batch';
 
 const Categories = () => {
   const [std, setStd] = useState('ALL');
@@ -49,56 +42,17 @@ const Categories = () => {
   }, [data]);
 
   const renderComponent = ({item}) => (
-    <View style={{marginBottom: 20, padding: 10}}>
-      <Card style={{borderRadius: 20, borderWidth: 1, borderColor: 'black'}}>
-        <CardImage
-          source={{
-            uri: 'https://i.imgur.com/SOQFYw0.png',
-          }}
-          title={item.info.std + '  ' + item.info.subject}
-        />
-        <CardTitle
-          title={item.info.title}
-          subtitle={
-            'Date of begin :' + new Date(item.info.date_of_begin).toDateString()
-          }
-        />
-        <CardContent text={item.info.description} />
-        <CardAction separator={true} inColumn={false}>
-          <View style={{padding: 20, flex: 1}}>
-            <TouchableOpacity
-              onPress={() => {
-                enroll(item._id);
-              }}
-              activeOpacity={0.5}>
-              <LinearGradient
-                colors={['#c31432', '#240b36']}
-                style={styles.btn2}>
-                <Text style={{color: '#fff', fontSize: 18}}>Subscribe</Text>
-              </LinearGradient>
-            </TouchableOpacity>
-          </View>
-          <View style={{padding: 20, flex: 1}}>
-            <TouchableOpacity onPress={() => {}} activeOpacity={0.5}>
-              <LinearGradient
-                colors={['#c31432', '#240b36']}
-                style={styles.btn2}>
-                <Text style={{color: '#fff', fontSize: 18}}>Explore</Text>
-              </LinearGradient>
-            </TouchableOpacity>
-          </View>
-        </CardAction>
-      </Card>
-    </View>
+    <TouchableOpacity>
+      <Batch description={item.info.description} title={item.info.title} subject={item.info.subject}/>
+    </TouchableOpacity>
   );
 
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={{
-          uri:
-            'https://i.pinimg.com/originals/88/bc/78/88bc78bc2d963bdd11f588db8e1d2acf.jpg',
-        }}
+       
+          source={require('../../assets/bright-squares.png')}
+       
         style={styles.image}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <View>
@@ -195,6 +149,7 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     resizeMode: 'cover',
+    backgroundColor:'white'
   },
 });
 

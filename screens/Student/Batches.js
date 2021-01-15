@@ -10,9 +10,11 @@ import {
   StatusBar,
   FlatList,
   ImageBackground,
+  Image,
 } from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
+import Batch from '../../components/Batch';
 
 import {
   Card,
@@ -37,50 +39,20 @@ const Batches = ({navigation}) => {
     // console.log(data, 'HEY THERE');
     setVal(true);
   }, [data]);
-  const renderComponent = ({item}) => (
-    <View style={{marginBottom: 20, padding: 10}}>
-      {console.log('ITEM', item)}
-      <Card style={{borderRadius: 20, borderWidth: 1, borderColor: 'black'}}>
-        <CardImage
-          source={{
-            uri: 'https://i.imgur.com/SOQFYw0.png',
-          }}
-          title={item.info.std + '  ' + item.info.subject}
-        />
-        <CardTitle
-          title={item.info.title}
-          subtitle={
-            'Date of begin :' + new Date(item.info.date_of_begin).toDateString()
-          }
-        />
-        <CardContent text={item.info.description} />
-        <CardAction separator={true} inColumn={false}>
-          <View style={{padding: 20, flex: 1}}>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate('StudentBatchPanel', {
-                  batchId: item._id,
-                });
-              }}
-              activeOpacity={0.5}>
-              <LinearGradient
-                colors={['#c31432', '#240b36']}
-                style={styles.btn}>
-                <Text style={{color: '#fff', fontSize: 18}}>Explore</Text>
-              </LinearGradient>
-            </TouchableOpacity>
-          </View>
-        </CardAction>
-      </Card>
-    </View>
+
+  const renderComponent = ({item, index}) => (
+    <TouchableOpacity>
+      <Batch
+        description={item.info.description}
+        subject={item.info.subject}
+        title={item.info.title}
+      />
+    </TouchableOpacity>
   );
 
   return (
     <ImageBackground
-      source={{
-        uri:
-          'https://i.pinimg.com/736x/23/0b/cc/230bccc0624c99a30686bb469b9d604c.jpg',
-      }}
+      source={require('../../assets/bright-squares.png')}
       style={styles.image}>
       <View style={{flex: 1}}>
         {console.log(data)}
@@ -114,6 +86,7 @@ const styles = StyleSheet.create({
   },
   image: {
     flex: 1,
+    backgroundColor: 'white',
     resizeMode: 'cover',
   },
 });

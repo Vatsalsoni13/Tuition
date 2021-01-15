@@ -8,6 +8,7 @@ import {
   FlatList,
   TouchableOpacity,
   Image,
+  ImageBackground
 } from 'react-native';
 
 import {createStackNavigator} from '@react-navigation/stack';
@@ -36,6 +37,11 @@ const Assignments = ({navigation}) => {
         alignItems: 'center',
         backgroundColor: '#fffef0',
         borderRadius: 15,
+        borderWidth:1,
+        borderColor:'black',
+      
+        borderLeftWidth:5
+
         // flexWrap: 'wrap',
       }}>
       <View style={{marginRight: 10}}>
@@ -67,6 +73,8 @@ const Assignments = ({navigation}) => {
 
   return (
     <View style={styles.container}>
+     <ImageBackground
+      style={styles.image}>
       <View>
         <FlatList
           data={filesArr}
@@ -74,6 +82,7 @@ const Assignments = ({navigation}) => {
           keyExtractor={(item) => item.assignId.toString()}
         />
       </View>
+      </ImageBackground>
     </View>
   );
 };
@@ -97,6 +106,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#B83227',
     borderRadius: 100,
   },
+  image: {
+    flex: 1,
+    backgroundColor:'#e8e9a1',
+    resizeMode: 'cover',
+  
+  }
 });
 
 export default Assignments;
