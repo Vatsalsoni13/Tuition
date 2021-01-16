@@ -62,7 +62,7 @@ const Chat = () => {
                 alignSelf:
                   item.userName == user.email ? 'flex-end' : 'flex-start',
                 backgroundColor:
-                  item.userName != user.email ? '#faf2f2' : '#ccafaf',
+                  item.userName != user.email ? '#faf2f2' : '#E9BBB5',
                 padding: 10,
                 marginVertical: 5,
                 borderTopLeftRadius: 10,

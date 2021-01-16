@@ -23,14 +23,14 @@ const AssignmentScreenTutor = ({navigation, route}) => {
   const [notSubmitted, setNotSubmitted] = useState([]);
 
   const submittedRenderItem = ({item}) => (
-    <View style={{padding: 15, backgroundColor: '#fcffcc', borderRadius: 15}}>
+    <View style={{padding: 15, backgroundColor: '#fcffcc', borderRadius: 7}}>
       <Text>Name : {item.studentName}</Text>
       <Text>Email : {item.email}</Text>
       <Text>Response : {item.name}</Text>
     </View>
   );
   const notSubmittedRenderItem = ({item}) => (
-    <View style={{padding: 15, backgroundColor: '#f1aa9b', borderRadius: 15}}>
+    <View style={{padding: 15, backgroundColor: '#f1aa9b', borderRadius: 7}}>
       <Text>Name : {item.studentName}</Text>
       <Text>Email : {item.email}</Text>
     </View>
