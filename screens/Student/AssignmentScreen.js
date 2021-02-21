@@ -161,12 +161,13 @@ const AssignmentScreen = ({navigation, route}) => {
   };
 
   const preview = async () => {
+
     const localFile = `${RNFS.DocumentDirectoryPath}/${assignment.fileName}`;
+
     const options = {
       fromUrl: assignment.path,
       toFile: localFile,
     };
-
     RNFS.downloadFile(options)
       .promise.then(() => {
         FileViewer.open(localFile);
@@ -174,7 +175,7 @@ const AssignmentScreen = ({navigation, route}) => {
       })
       .then(() => {
         // success
-        console.log('Success');
+        console.log('opening');
       })
       .catch((error) => {
         // error

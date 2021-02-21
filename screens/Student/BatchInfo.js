@@ -1,28 +1,18 @@
 import React,{useState,useEffect,useContext} from 'react';
-import {View, Text, StyleSheet, Image, Dimensions,FlatList} from 'react-native';
+import {View, Text, StyleSheet, Image, Dimensions} from 'react-native';
 import { getBatchInfo } from '../../utils/apiCalls';
-import {NetworkContext} from '../../navigation/BatchPanel';
+import {NetworkContext} from '../../navigation/StudenBatchPanel';
 import { ScrollView } from 'react-native-gesture-handler';
 
 const BatchInfo = () => {
     const [data,setData] = useState({});
     const [arrived,setArrived] = useState(false)
-    const [students,setStudents] = useState([])
     const batchId = useContext(NetworkContext);  
-
-    const enrolledStudents = ({item}) => (
-      <View style={{marginVertical:6,backgroundColor:'#CCD4BF',padding:8,borderRadius:6}}>
-        <Text>Name : {item.name}</Text>
-        <Text>Email : {item.email}</Text>
-      </View>
-    );
-
 
     useEffect(()=>{
       getBatchInfo(batchId).then((batch)=>{
         console.log(batch,"SSSS");
         setData(batch);
-        setStudents(batch.batch.students);
         setArrived(true);
       });
      
@@ -35,7 +25,7 @@ const BatchInfo = () => {
         <View >
         {(arrived===true) && ( 
         <View>
-        <View style={{display:'flex',flex:1,padding:20,backgroundColor:'#F5E2E4',borderBottomLeftRadius:40,borderBottomRightRadius:40}}>        
+        <View style={{display:'flex',flex:1,padding:20,backgroundColor:'#FBECDB',borderBottomLeftRadius:40,borderBottomRightRadius:40}}>        
             <View style={{flex:1}}>
             <Text style={{fontSize:16,fontWeight:'bold'}}>{data.batch.info.subject}</Text>
             </View>
@@ -48,6 +38,13 @@ const BatchInfo = () => {
         </View>
         <View style={{display:'flex',flex:2,padding:20,marginBottom:10}}>
             <View style={{flex:1,display:'flex',justifyContent:'space-evenly',alignItems:'flex-start'}}>
+                <Text style={{fontSize:16,fontWeight:'bold',color:'black',marginVertical:10}}>TUTOR  INFORMATION</Text>
+                <Text style={styles.tags}>Name :  {data.owner.name}</Text>
+                <Text style={styles.tags}>Qualification :  {data.owner.qualification}</Text>
+                <Text style={styles.tags}>Email :  {data.owner.email}</Text>
+                <Text style={styles.tags}>Location :  {data.owner.location}</Text>
+            </View>
+            <View style={{flex:1,display:'flex',justifyContent:'space-evenly',alignItems:'flex-start'}}>
             <Text style={{fontSize:16,fontWeight:'bold',color:'black',marginVertical:10,marginTop:13}}>BATCH  DURATION</Text>
                 <Text style={styles.tags}>Batch Beggining :  {new Date(data.batch.info.date_of_begin).toString().substring(0,15)}</Text>
                 <Text style={styles.tags}>Batch End :  {new Date(data.batch.info.expire_date).toString().substring(0,15)}</Text>
@@ -56,19 +53,8 @@ const BatchInfo = () => {
             <Text style={{fontSize:16,fontWeight:'bold',color:'black',marginVertical:10,marginTop:13}}>BATCH  DESCRIPTION</Text>
                 <Text style={styles.tags}>{data.batch.info.description}</Text>
             </View>
-            <View>
-            </View>
-       
-        <View style={{height:Dimensions.get('screen').height/3}}>
-        <Text style={{fontSize:16,fontWeight:'bold',color:'black',marginVertical:10}}>STUDENTS ENROLLED</Text>
-
-        <FlatList
-          data={students}
-          renderItem={enrolledStudents}
-          keyExtractor={(item) => item.email}
-        />
-      </View>
         </View>
+        
         </View>
         )}
         </View>
@@ -81,7 +67,7 @@ const styles = StyleSheet.create({
     flex: 1,
     display:'flex'
     ,
-    backgroundColor:'#CA9C95'
+    backgroundColor:'#D29F8C'
   },
   image:{
       width:Dimensions.get('screen').width/2,

@@ -192,6 +192,7 @@ const Assignments = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor:'#fff3e6'
   },
   floatButton: {
     borderWidth: 1,
