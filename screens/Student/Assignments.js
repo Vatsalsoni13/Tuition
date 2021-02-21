@@ -24,7 +24,7 @@ const Assignments = ({navigation}) => {
   useEffect(() => {
     setFilesArr([]);
     getAllAssignments().then((data) => {
-      // console.log('DATA', data);
+      console.log('DATA', data);
       setFilesArr(data);
     });
   }, []);

@@ -8,6 +8,7 @@ import {
   ScrollView,
   FlatList,
   ImageBackground,
+  Button,
 } from 'react-native';
 import {Picker} from '@react-native-community/picker';
 import {TouchableOpacity} from 'react-native-gesture-handler';
@@ -43,16 +44,24 @@ const Categories = () => {
 
   const renderComponent = ({item}) => (
     <TouchableOpacity>
-      <Batch description={item.info.description} title={item.info.title} subject={item.info.subject}/>
+      <Batch
+        description={item.info.description}
+        title={item.info.title}
+        subject={item.info.subject}
+      />
+      <Button
+        title="Subscribe"
+        onPress={() => {
+          enroll(item._id);
+        }}
+      />
     </TouchableOpacity>
   );
 
   return (
     <View style={styles.container}>
       <ImageBackground
-       
-          source={require('../../assets/bright-squares.png')}
-       
+        source={require('../../assets/bright-squares.png')}
         style={styles.image}>
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <View>
@@ -149,7 +158,7 @@ const styles = StyleSheet.create({
   image: {
     flex: 1,
     resizeMode: 'cover',
-    backgroundColor:'white'
+    backgroundColor: 'white',
   },
 });
 

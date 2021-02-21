@@ -8,7 +8,6 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
-
 const Calendar = () => {
   return (
     <View>

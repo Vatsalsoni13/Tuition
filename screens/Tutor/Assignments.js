@@ -144,7 +144,7 @@ const Assignments = ({navigation}) => {
     //
     setFilesArr([]);
     //
-    // console.log(batchId);
+    console.log('BATCH', batchId);
     getAssignment(batchId).then((data) => {
       console.log('DATA', data);
       setFilesArr(data);
@@ -170,6 +170,7 @@ const Assignments = ({navigation}) => {
               item={item}
               navigation={navigation}
               screen={'AssignmentScreenTutor'}
+              batchId={batchId}
             />
           )}
           keyExtractor={(item) => item.assignId.toString()}
