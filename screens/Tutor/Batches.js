@@ -54,7 +54,9 @@ const Batches = ({navigation}) => {
   );
 
   return (
-    <View style={{flex: 1}}>
+    <ImageBackground
+      source={require('../../assets/bright-squares.png')}
+      style={styles.image}>
       <View style={{marginBottom: 15, marginTop: 15}}>
         <FlatList
           style={{padding: 25}}
@@ -75,7 +77,8 @@ const Batches = ({navigation}) => {
           <Entypo name="plus" size={30} color="#fff" />
         </TouchableOpacity>
       </View>
-    </View>
+    
+    </ImageBackground>
   );
 };
 
@@ -112,6 +115,11 @@ const styles = StyleSheet.create({
     opacity: 0.9,
     backgroundColor: '#B83227',
     borderRadius: 100,
+  },
+  image: {
+    flex: 1,
+    backgroundColor: 'white',
+    resizeMode: 'cover',
   },
 });
 

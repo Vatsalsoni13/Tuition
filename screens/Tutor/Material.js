@@ -230,6 +230,7 @@ const Material = ({route}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor:'#CCD4BF'
   },
   floatButton: {
     borderWidth: 1,

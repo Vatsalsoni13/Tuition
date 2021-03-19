@@ -24,7 +24,7 @@ const Batch = ({
     </View>
     </View>
     <View styles={{flex:1,alignSelf:'flex-end'}}>
-    <Image style={styles.icons} source={str[(description.length+2)%5]}/>
+    <Image style={styles.icons} source={str[(description.length)%5 + 1]}/>
     </View>
     </View>
   );

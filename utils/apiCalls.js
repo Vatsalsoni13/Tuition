@@ -295,3 +295,39 @@ export const getAssignmentResponses = async (batchId, assignId) => {
     console.log(error);
   }
 };
+
+export const getBatchAssignments = async (batchId) =>{
+  try {
+    let resp = await fetch(`${url}/student/batch_assignments?batchId=${batchId}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    });
+    let assignments = await resp.json();
+    return assignments;
+  } catch (error) {
+    console.log(error);
+    return []; 
+  }
+}
+
+export const getBatchInfo = async (batchId)=>{
+  console.log(batchId);
+  try {
+    let resp = await fetch(`${url}/batch?batchId=${batchId}`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+    });
+    let batch = await resp.json();
+    console.log(batch,"SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS")
+    return batch;
+  } catch (error) {
+    console.log(error);
+    return {}; 
+  }
+}

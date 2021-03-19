@@ -124,13 +124,15 @@ const Material = ({route}) => {
       fromUrl: item.fileURL,
       toFile: localFile,
     };
-
     RNFS.downloadFile(options)
-      .promise.then(() => FileViewer.open(localFile))
-      .then(() => {
+      .promise.then(() => FileViewer.open(localFile).then(() => {
         // success
-        console.log('Success');
+        console.log('opening');
       })
+      .catch((error) => {
+        // error
+        console.log(error);
+      }))
       .catch((error) => {
         // error
         console.log(error);
@@ -204,6 +206,7 @@ const Material = ({route}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor:'#CCD4BF'
   },
 });
 
